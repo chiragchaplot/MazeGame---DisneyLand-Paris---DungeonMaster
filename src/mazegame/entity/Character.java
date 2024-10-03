@@ -38,7 +38,7 @@ public class Character {
 		this.lifePoints = lifePoints;
 	}
 
-	private String getName() {
+	protected String getName() {
 		return name;
 	}
 
@@ -46,7 +46,7 @@ public class Character {
 		this.name = name;
 	}
 
-	private int getStrength() {
+	protected int getStrength() {
 		return strength;
 	}
 

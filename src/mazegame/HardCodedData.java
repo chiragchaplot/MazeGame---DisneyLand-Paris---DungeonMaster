@@ -103,34 +103,37 @@ public class HardCodedData implements IMazeData {
 //	    goofy.setConversationListMap(conversationList);
 	}
 
-	private void connectLocations()
-	{
+	private void connectLocations() {
 	    // Connect Locations (Disneyland Paris Attractions)
+
+	    // Connecting startUp to other locations
 	    startUp.addExit("north", new Exit("Sleeping Beauty Castle", sleepingBeautyCastle));
+	    sleepingBeautyCastle.addExit("south", new Exit("Disneyland Entrance", startUp)); // Reverse connection
+
 	    startUp.addExit("west", new Exit("Adventureland", adventureland));
+	    adventureland.addExit("east", new Exit("Disneyland Entrance", startUp)); // Reverse connection
+
 	    startUp.addExit("east", new Exit("Discoveryland", discoveryland));
+	    discoveryland.addExit("west", new Exit("Disneyland Entrance", startUp)); // Reverse connection
+
 	    startUp.addExit("southwest", new Exit("Frontierland", frontierland));
+	    frontierland.addExit("northeast", new Exit("Disneyland Entrance", startUp)); // Reverse connection
+
 	    startUp.addExit("southeast", new Exit("Fantasyland", fantasyland));
+	    fantasyland.addExit("northwest", new Exit("Disneyland Entrance", startUp)); // Reverse connection
 
-	    sleepingBeautyCastle.addExit("south", new Exit("Disneyland Entrance", startUp));
+	    // Connecting Sleeping Beauty Castle to other locations
 	    sleepingBeautyCastle.addExit("northwest", new Exit("Pirates of the Caribbean", piratesOfTheCaribbean));
+	    piratesOfTheCaribbean.addExit("southeast", new Exit("Sleeping Beauty Castle", sleepingBeautyCastle)); // Reverse connection
+
 	    sleepingBeautyCastle.addExit("northeast", new Exit("Phantom Manor", phantomManor));
+	    phantomManor.addExit("southwest", new Exit("Sleeping Beauty Castle", sleepingBeautyCastle)); // Reverse connection
 
-	    adventureland.addExit("east", new Exit("Disneyland Entrance", startUp));
+	    // Connecting Adventureland to other locations
 	    adventureland.addExit("north", new Exit("Big Thunder Mountain", bigThunderMountain));
-
-	    discoveryland.addExit("west", new Exit("Disneyland Entrance", startUp));
-
-	    frontierland.addExit("northeast", new Exit("Disneyland Entrance", startUp));
-
-	    fantasyland.addExit("northwest", new Exit("Disneyland Entrance", startUp));
-
-	    piratesOfTheCaribbean.addExit("south", new Exit("Sleeping Beauty Castle", sleepingBeautyCastle));
-
-	    phantomManor.addExit("south", new Exit("Sleeping Beauty Castle", sleepingBeautyCastle));
-
-	    bigThunderMountain.addExit("south", new Exit("Adventureland", adventureland));
+	    bigThunderMountain.addExit("south", new Exit("Adventureland", adventureland)); // Reverse connection
 	}
+
 
 	private void populateItemsInLocations()
 	{

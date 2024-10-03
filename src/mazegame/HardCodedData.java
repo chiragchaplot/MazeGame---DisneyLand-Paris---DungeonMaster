@@ -16,6 +16,11 @@ public class HardCodedData implements IMazeData {
     private Location phantomManor;
     private Location bigThunderMountain;
     
+    private Shop emporium;
+    private Shop thunderMesaMercantileBuilding;
+    private Shop laBoutiquest;
+    private Shop theLodge;
+    
 	private ArrayList<Location> map = new ArrayList<Location>();
 	
 	public HardCodedData()
@@ -39,6 +44,7 @@ public class HardCodedData implements IMazeData {
 	    createShops();
 	    createNPCs();
 	    connectLocations();
+	    connectShops();
 //	    populateItemsInLocations();
 	}
 
@@ -70,10 +76,10 @@ public class HardCodedData implements IMazeData {
 	private void createShops() 
 	{
 	    // Create Disneyland Paris-themed Shops
-	    Shop emporium = new Shop("A classic shop on Main Street USA offering Disney-themed merchandise", "Emporium");
-	    Shop thunderMesaMercantileBuilding = new Shop("A western-themed shop offering souvenirs and clothing", "Thunder Mesa Mercantile Building");
-	    Shop laBoutiquest = new Shop("A boutique featuring exclusive Disney jewelry and accessories", "La Boutique du Château");
-	    Shop theLodge = new Shop("A cozy shop in Frontierland with wilderness-themed gifts", "The Lodge");
+	    emporium = new Shop("A classic shop on Main Street USA offering Disney-themed merchandise", "Emporium");
+	    thunderMesaMercantileBuilding = new Shop("A western-themed shop offering souvenirs and clothing", "Thunder Mesa Mercantile Building");
+	    laBoutiquest = new Shop("A boutique featuring exclusive Disney jewelry and accessories", "La Boutique du Château");
+	    theLodge = new Shop("A cozy shop in Frontierland with wilderness-themed gifts", "The Lodge");
 
 	    // Add shops to the map
 	    map.add(emporium);
@@ -91,16 +97,19 @@ public class HardCodedData implements IMazeData {
 //	    mickeyMouse.setAgility(AgilityTable.getInstance().getAgility(gen.generateRandomInRange(1, 10)));
 	    mickeyMouse.setLifePoints(20);
 	    mickeyMouse.setHostile(false);
+	    mickeyMouse.setConversationListMap(createNonHostileConversation1().getAllConversations());
 
 	    NonPlayableCharacter maleficent = new NonPlayableCharacter("Maleficent");
 //	    maleficent.setStrength(StrengthTable.getInstance().getStrength(gen.generateRandomInRange(1, 10)));
 //	    maleficent.setAgility(AgilityTable.getInstance().getAgility(gen.generateRandomInRange(1, 10)));
 	    maleficent.setLifePoints(25);
 	    maleficent.setHostile(true);
+	    maleficent.setConversationListMap(createHostileConversation().getAllConversations());
 
 	    NonPlayableCharacter goofy = new NonPlayableCharacter("Goofy");
 	    goofy.setHostile(false);
-//	    goofy.setConversationListMap(conversationList);
+	    goofy.setConversationListMap(createNonHostileConversation2().getAllConversations());
+
 	}
 
 	private void connectLocations() {
@@ -134,6 +143,31 @@ public class HardCodedData implements IMazeData {
 	    bigThunderMountain.addExit("south", new Exit("Adventureland", adventureland)); // Reverse connection
 	}
 
+	private void connectShops() {
+	    // Connect Emporium and Thunder Mesa Mercantile Building to startUp (Disneyland Entrance)
+	    startUp.addExit("northwest", new Exit("Emporium", emporium));
+	    emporium.addExit("southeast", new Exit("Disneyland Entrance", startUp));  // Reverse connection
+
+	    startUp.addExit("northeast", new Exit("Thunder Mesa Mercantile Building", thunderMesaMercantileBuilding));
+	    thunderMesaMercantileBuilding.addExit("southwest", new Exit("Disneyland Entrance", startUp));  // Reverse connection
+
+	    // Connect Emporium to Big Thunder Mountain
+	    emporium.addExit("north", new Exit("Big Thunder Mountain", bigThunderMountain));
+	    bigThunderMountain.addExit("south", new Exit("Emporium", emporium));  // Reverse connection
+
+	    // Connect Thunder Mesa Mercantile Building to Pirates of the Caribbean
+	    thunderMesaMercantileBuilding.addExit("northwest", new Exit("Pirates of the Caribbean", piratesOfTheCaribbean));
+	    piratesOfTheCaribbean.addExit("southeast", new Exit("Thunder Mesa Mercantile Building", thunderMesaMercantileBuilding));  // Reverse connection
+
+	    // Connect La Boutique du Château to Sleeping Beauty Castle
+	    laBoutiquest.addExit("south", new Exit("Sleeping Beauty Castle", sleepingBeautyCastle));
+	    sleepingBeautyCastle.addExit("north", new Exit("La Boutique du Château", laBoutiquest));  // Reverse connection
+
+	    // Connect The Lodge to Phantom Manor
+	    theLodge.addExit("west", new Exit("Phantom Manor", phantomManor));
+	    phantomManor.addExit("east", new Exit("The Lodge", theLodge));  // Reverse connection
+	}
+
 
 	private void populateItemsInLocations()
 	{
@@ -144,5 +178,38 @@ public class HardCodedData implements IMazeData {
 //	    emporium.createItems("items", itemsList5); // Adding merchandise in Emporium
 //	    thunderMesaMercantileBuilding.createItems("items", itemsList6); // Adding souvenirs in Thunder Mesa Mercantile Building
 	}
+	
+	private ConversationList createNonHostileConversation1() {
+	    ConversationList conversationList = new ConversationList();
+	    conversationList.addConversation("hello", "Hi there! Welcome to Disneyland Paris. How can I help you today?");
+	    conversationList.addConversation("good", "Glad to hear you're enjoying your time at Disneyland! Did you see Sleeping Beauty Castle yet?");
+	    conversationList.addConversation("castle", "The Sleeping Beauty Castle is just to the north. It's magical!");
+	    conversationList.addConversation("adventureland", "Head west to Adventureland for some thrilling rides! Watch out for the pirates!");
+	    conversationList.addConversation("bye", "See you around, pal! Have a magical day!");
+	    return conversationList;
+	}
+
+
+	private ConversationList createNonHostileConversation2() {
+	    ConversationList conversationList = new ConversationList();
+	    conversationList.addConversation("hello", "Gawrsh! Howdy, pal! What brings you to Disneyland?");
+	    conversationList.addConversation("adventureland", "Oh boy! Adventureland is my favorite! Just head west from here.");
+	    conversationList.addConversation("phantom", "Phantom Manor? That's one spooky place! It's northeast from Sleeping Beauty Castle.");
+	    conversationList.addConversation("bigthunder", "Big Thunder Mountain? Yeehaw! You’ll find it north of Adventureland.");
+	    conversationList.addConversation("bye", "Take care, and have a great time at Disneyland!");
+	    return conversationList;
+	}
+
+
+	private ConversationList createHostileConversation() {
+	    ConversationList conversationList = new ConversationList();
+	    conversationList.addConversation("hello", "Why have you disturbed me? I do not take kindly to trespassers.");
+	    conversationList.addConversation("fight", "You dare challenge me? Prepare for your demise!");
+	    conversationList.addConversation("flee", "Run while you can, but you will never escape my wrath.");
+	    conversationList.addConversation("defeated", "Pathetic fool! You were no match for my power.");
+	    return conversationList;
+	}
+
+
 
 }

@@ -1,5 +1,8 @@
-package mazegame.control;
+package mazegame.control.commands;
 
+import mazegame.control.Command;
+import mazegame.control.CommandResponse;
+import mazegame.control.ParsedInput;
 import mazegame.entity.Exit;
 import mazegame.entity.Player;
 

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+import mazegame.control.commands.*;
 import mazegame.entity.Player;
 
 public class CommandHandler {
@@ -24,6 +25,10 @@ public class CommandHandler {
 		availableCommands.put("quit", new QuitCommand());
 		availableCommands.put("move", new MoveCommand());
 		availableCommands.put("look",  new LookCommand());
+	    availableCommands.put("listItems", new ListItemsCommand());
+	    availableCommands.put("listitems", new ListItemsCommand());
+	    availableCommands.put("list Items", new ListItemsCommand());
+	    availableCommands.put("list items", new ListItemsCommand());
 	}
 	
 	private ArrayList<String> popArrayList () {
@@ -35,9 +40,16 @@ public class CommandHandler {
 		return temp;
 	}
 	
-	public CommandResponse processTurn (String userInput, Player thePlayer) {
-		ParsedInput validInput = theParser.parse(userInput);
-		Command theCommand = (Command) availableCommands.get(validInput.getCommand());
-		return theCommand.execute(validInput, thePlayer);
+	public CommandResponse processTurn(String userInput, Player thePlayer) {
+	    if (userInput == null || userInput.trim().isEmpty()) {
+	        return new CommandResponse("Please enter a command.");
+	    }
+	    ParsedInput validInput = theParser.parse(userInput);
+	    Command theCommand = availableCommands.get(validInput.getCommand());
+	    if (theCommand == null) {
+	        return new CommandResponse("Invalid command. Please try again.");
+	    }
+	    return theCommand.execute(validInput, thePlayer);
 	}
+
 }

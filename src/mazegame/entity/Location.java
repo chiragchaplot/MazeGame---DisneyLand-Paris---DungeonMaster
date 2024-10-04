@@ -43,10 +43,26 @@ public class Location {
 	}
 	
 	public String toString() {
-	        return "**********\n" + this.label + "\n**********\n"
-	            + "Exits found :: " + availableExits() + "\n**********\n" 
-	            + this.description + "\n**********\n";
+	    StringBuilder exitsDisplay = new StringBuilder("Available exits:\n");
+	    StringBuilder shopExits = new StringBuilder("Shops nearby:\n");
+
+	    // Separate exits into regular locations and shops
+	    for (Object key : this.exits.keySet()) {
+	        Exit exit = (Exit) exits.get(key);
+	        if (exit.getDestination() instanceof Shop) {
+	            shopExits.append("[").append(key.toString()).append("] to ").append(exit.getDestination().getLabel()).append("\n");
+	        } else {
+	            exitsDisplay.append("[").append(key.toString()).append("] to ").append(exit.getDestination().getLabel()).append("\n");
+	        }
+	    }
+
+	    // Combine regular exits and shop exits in the final display
+	    return "**********\n" + this.label + "\n**********\n" +
+	           "Exits found:\n" + exitsDisplay.toString() +
+	           (shopExits.length() > "Shops nearby:\n".length() ? shopExits.toString() : "No shops nearby.\n") +
+	           "**********\n" + this.description + "\n**********\n";
 	}
+
 	
 	public boolean containsExit(String exitLabel) {
 		return exits.containsKey(exitLabel);

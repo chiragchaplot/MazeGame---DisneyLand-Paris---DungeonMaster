@@ -1,6 +1,7 @@
 package mazegame.entity;
 
 import java.util.ArrayList;
+import mazegame.entity.items.*;
 
 public class Shop extends Location {
     private ArrayList<Item> itemsForSale;
@@ -32,15 +33,76 @@ public class Shop extends Location {
         return itemsForSale;
     }
 
-    // Display the items available for sale
+ // Display the items available for sale, categorized by item type
     public String displayItemsForSale() {
         if (itemsForSale.isEmpty()) {
             return "No items available for sale.";
         }
+
         StringBuilder itemsDisplay = new StringBuilder("Items for sale:\n");
+
+        // Categorize items into different types
+        ArrayList<Item> weapons = new ArrayList<>();
+        ArrayList<Item> armors = new ArrayList<>();
+        ArrayList<Item> shields = new ArrayList<>();
+        ArrayList<Item> potions = new ArrayList<>();
+        ArrayList<Item> others = new ArrayList<>();
+
+        // Sort items into their respective categories
         for (Item item : itemsForSale) {
-            itemsDisplay.append(item.getLabel()).append(" - ").append(item.getDescription()).append("\n");
+            if (item instanceof Weapon) {
+                weapons.add(item);
+            } else if (item instanceof Armor) {
+                armors.add(item);
+            } else if (item instanceof Shield) {
+                shields.add(item);
+            } else if (item instanceof Potion) {
+                potions.add(item);
+            } else {
+                others.add(item); // For other types of items
+            }
         }
+
+        // Display weapons
+        if (!weapons.isEmpty()) {
+            itemsDisplay.append("\nWeapons:\n");
+            for (Item weapon : weapons) {
+                itemsDisplay.append(weapon.getLabel()).append(" - ").append(weapon.getDescription()).append("\n");
+            }
+        }
+
+        // Display armors
+        if (!armors.isEmpty()) {
+            itemsDisplay.append("\nArmors:\n");
+            for (Item armor : armors) {
+                itemsDisplay.append(armor.getLabel()).append(" - ").append(armor.getDescription()).append("\n");
+            }
+        }
+
+        // Display shields
+        if (!shields.isEmpty()) {
+            itemsDisplay.append("\nShields:\n");
+            for (Item shield : shields) {
+                itemsDisplay.append(shield.getLabel()).append(" - ").append(shield.getDescription()).append("\n");
+            }
+        }
+
+        // Display potions
+        if (!potions.isEmpty()) {
+            itemsDisplay.append("\nPotions:\n");
+            for (Item potion : potions) {
+                itemsDisplay.append(potion.getLabel()).append(" - ").append(potion.getDescription()).append("\n");
+            }
+        }
+
+        // Display other items if there are any
+        if (!others.isEmpty()) {
+            itemsDisplay.append("\nOther Items:\n");
+            for (Item other : others) {
+                itemsDisplay.append(other.getLabel()).append(" - ").append(other.getDescription()).append("\n");
+            }
+        }
+
         return itemsDisplay.toString();
     }
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import mazegame.boundary.IMazeData;
 import mazegame.entity.*;
+import mazegame.entity.items.*;
 
 public class HardCodedData implements IMazeData {
 	private Location startUp;
@@ -86,8 +87,13 @@ public class HardCodedData implements IMazeData {
 	    map.add(thunderMesaMercantileBuilding);
 	    map.add(laBoutiquest);
 	    map.add(theLodge);
+	    
+	    populateShopWithItems(emporium);
+        populateShopWithItems(thunderMesaMercantileBuilding);
+        populateShopWithItems(laBoutiquest);
+        populateShopWithItems(theLodge);
 	}
-
+	
 	private void createNPCs()
 	{
 	    // Create Non-Player Characters (NPC)
@@ -210,6 +216,27 @@ public class HardCodedData implements IMazeData {
 	    return conversationList;
 	}
 
+	private void populateShopWithItems(Shop shop) {
+        // Get lists of weapons, armors, shields, and potions
+        ArrayList<Weapon> weapons = Weapon.createWeaponList();
+        ArrayList<Armor> armors = Armor.createArmorList();
+        ArrayList<Shield> shields = Shield.createShieldList();
+        ArrayList<Potion> potions = Potion.createPotionList();
 
+        for (Weapon weapon : weapons) {
+            shop.addItemForSale(weapon);
+        }
 
+        for (Armor armor : armors) {
+            shop.addItemForSale(armor);
+        }
+
+        for (Shield shield : shields) {
+            shop.addItemForSale(shield);
+        }
+
+        for (Potion potion : potions) {
+            shop.addItemForSale(potion);
+        }
+    }
 }

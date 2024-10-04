@@ -1,4 +1,4 @@
-package mazegame.entity;
+package mazegame.entity.items;
 
 public class Item {
     private String label;        // Name of the item

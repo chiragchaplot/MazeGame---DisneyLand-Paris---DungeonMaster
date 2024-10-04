@@ -10,7 +10,6 @@ public class Character {
 //    public Mazegame.Entity.Party m_Party;
 //    public Mazegame.Entity.Item m_Item;
 //    public Mazegame.Entity.Shield m_Shield;
-//    public Mazegame.Entity.Weapon m_Weapon;
 //    public Mazegame.Entity.Armor m_Armor;
     
     public Character()

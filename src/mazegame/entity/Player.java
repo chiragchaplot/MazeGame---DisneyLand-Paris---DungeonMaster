@@ -43,4 +43,8 @@ public class Player extends Character {
     public void removeItemFromInventory(Item item) {
         this.inventory.removeItem(item);
     }
+
+    public Item getItemById(int id) {
+        return inventory.getItemById(id);
+    }
 }

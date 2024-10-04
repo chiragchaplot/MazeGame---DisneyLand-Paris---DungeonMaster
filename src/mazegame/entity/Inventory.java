@@ -22,4 +22,13 @@ public class Inventory {
     public void removeItem(Item item) {
         items.remove(item);
     }
+
+    public Item getItemById(int id) {
+        for (Item item : items) {
+            if (item.getId() == id) {
+                return item;
+            }
+        }
+        return null;
+    }
 }

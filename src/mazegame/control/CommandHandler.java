@@ -26,6 +26,7 @@ public class CommandHandler {
         availableCommands.put("look", new LookCommand());
         availableCommands.put("listitems", new ListItemsCommand());
         availableCommands.put("getitem", new GetItemCommand());
+        availableCommands.put("dropitem", new DropItemCommand());
         availableCommands.put("help", new HelpCommand(availableCommands.keySet()));
     }
 

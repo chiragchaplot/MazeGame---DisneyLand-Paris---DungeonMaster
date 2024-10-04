@@ -10,14 +10,12 @@ import java.util.ArrayList;
 
 public class GetItemCommand implements Command {
 
-    @Override
     public CommandResponse execute(ParsedInput userInput, Player thePlayer) {
         if (userInput.getArguments().isEmpty()) {
             return new CommandResponse("Please specify the item ID you want to collect.");
         }
 
         try {
-            // Cast the first argument to String and then parse it to an Integer
             int itemId = Integer.parseInt((String) userInput.getArguments().get(0));
             ArrayList<Item> itemsInLocation = thePlayer.getCurrentLocation().getItems();
 

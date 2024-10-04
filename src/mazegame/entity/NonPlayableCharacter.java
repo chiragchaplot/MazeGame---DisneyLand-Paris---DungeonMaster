@@ -2,20 +2,15 @@ package mazegame.entity;
 
 import java.util.HashMap;
 
-import mazegame.entity.Character;
-
 public class NonPlayableCharacter extends Character {
-
     private boolean hostile;
     private HashMap<String, String> conversationListMap;
 
-    // Constructor to initialize the NPC with name
     public NonPlayableCharacter(String name) {
-        super(name);  // Calling the parent class constructor
+        super(name);
         this.conversationListMap = new HashMap<>();
     }
 
-    // Getter and Setter methods for hostile attribute
     public boolean isHostile() {
         return hostile;
     }
@@ -32,7 +27,6 @@ public class NonPlayableCharacter extends Character {
         this.conversationListMap = conversationListMap;
     }
 
-    // Method for NPC interaction (talk)
     public String talk(String playerInput) {
         if (conversationListMap.containsKey(playerInput)) {
             return conversationListMap.get(playerInput);
@@ -41,7 +35,6 @@ public class NonPlayableCharacter extends Character {
         }
     }
 
-    // Method to display NPC status
     public String getStatus() {
         return getName() + " [Strength: " + getStrength() + ", Agility: " + getAgility() + ", Life Points: " + getLifePoints() + "]";
     }

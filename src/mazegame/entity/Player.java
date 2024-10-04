@@ -13,13 +13,21 @@ public class Player extends Character {
 
     public Player() {
         this.inventory = new Inventory();
+        setDefaultStats();
         addDefaultWeapon();
     }
 
     public Player(String name) {
         super(name);
         this.inventory = new Inventory();
+        setDefaultStats();
         addDefaultWeapon();
+    }
+
+    private void setDefaultStats() {
+        setAgility(10);
+        setLifePoints(10);
+        setStrength(10);
     }
 
     private void addDefaultWeapon() {
@@ -70,5 +78,4 @@ public class Player extends Character {
     public boolean isEquipped(Item item) {
         return (item.equals(this.equippedWeapon) || item.equals(this.equippedArmor));
     }
-
 }

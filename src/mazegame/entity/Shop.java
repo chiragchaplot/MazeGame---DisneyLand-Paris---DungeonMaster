@@ -34,6 +34,7 @@ public class Shop extends Location {
     }
 
  // Display the items available for sale, categorized by item type
+ // Display the items available for sale, categorized by item type and including item ID
     public String displayItemsForSale() {
         if (itemsForSale.isEmpty()) {
             return "No items available for sale.";
@@ -67,7 +68,9 @@ public class Shop extends Location {
         if (!weapons.isEmpty()) {
             itemsDisplay.append("\nWeapons:\n");
             for (Item weapon : weapons) {
-                itemsDisplay.append(weapon.getLabel()).append(" - ").append(weapon.getDescription()).append("\n");
+                itemsDisplay.append("[").append(weapon.getId()).append("] ")
+                            .append(weapon.getLabel()).append(" - ")
+                            .append(weapon.getDescription()).append("\n");
             }
         }
 
@@ -75,7 +78,9 @@ public class Shop extends Location {
         if (!armors.isEmpty()) {
             itemsDisplay.append("\nArmors:\n");
             for (Item armor : armors) {
-                itemsDisplay.append(armor.getLabel()).append(" - ").append(armor.getDescription()).append("\n");
+                itemsDisplay.append("[").append(armor.getId()).append("] ")
+                            .append(armor.getLabel()).append(" - ")
+                            .append(armor.getDescription()).append("\n");
             }
         }
 
@@ -83,7 +88,9 @@ public class Shop extends Location {
         if (!shields.isEmpty()) {
             itemsDisplay.append("\nShields:\n");
             for (Item shield : shields) {
-                itemsDisplay.append(shield.getLabel()).append(" - ").append(shield.getDescription()).append("\n");
+                itemsDisplay.append("[").append(shield.getId()).append("] ")
+                            .append(shield.getLabel()).append(" - ")
+                            .append(shield.getDescription()).append("\n");
             }
         }
 
@@ -91,7 +98,9 @@ public class Shop extends Location {
         if (!potions.isEmpty()) {
             itemsDisplay.append("\nPotions:\n");
             for (Item potion : potions) {
-                itemsDisplay.append(potion.getLabel()).append(" - ").append(potion.getDescription()).append("\n");
+                itemsDisplay.append("[").append(potion.getId()).append("] ")
+                            .append(potion.getLabel()).append(" - ")
+                            .append(potion.getDescription()).append("\n");
             }
         }
 
@@ -99,7 +108,9 @@ public class Shop extends Location {
         if (!others.isEmpty()) {
             itemsDisplay.append("\nOther Items:\n");
             for (Item other : others) {
-                itemsDisplay.append(other.getLabel()).append(" - ").append(other.getDescription()).append("\n");
+                itemsDisplay.append("[").append(other.getId()).append("] ")
+                            .append(other.getLabel()).append(" - ")
+                            .append(other.getDescription()).append("\n");
             }
         }
 

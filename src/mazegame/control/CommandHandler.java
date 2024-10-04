@@ -26,9 +26,6 @@ public class CommandHandler {
 		availableCommands.put("move", new MoveCommand());
 		availableCommands.put("look",  new LookCommand());
 	    availableCommands.put("listItems", new ListItemsCommand());
-	    availableCommands.put("listitems", new ListItemsCommand());
-	    availableCommands.put("list Items", new ListItemsCommand());
-	    availableCommands.put("list items", new ListItemsCommand());
 	}
 	
 	private ArrayList<String> popArrayList () {

@@ -1,25 +1,29 @@
 package mazegame.entity;
 
 import mazegame.entity.items.Item;
-import java.util.ArrayList;
+import mazegame.entity.items.Weapon;
 
 public class Player extends Character {
     
     private Location currentLocation;
     private Inventory inventory;
 
-    // Default constructor
     public Player() {
         this.inventory = new Inventory();
+        addDefaultWeapon();
     }
 
-    // Constructor with name
     public Player(String name) {
         super(name);
         this.inventory = new Inventory();
+        addDefaultWeapon();
     }
 
-    // Getters and setters
+    private void addDefaultWeapon() {
+        Weapon defaultWeapon = new Weapon("Basic Sword", "A basic sword to start your journey", 3.0, 10.0, 5);
+        this.inventory.addItem(defaultWeapon);
+    }
+
     public Location getCurrentLocation() {
         return currentLocation;
     }
@@ -28,17 +32,14 @@ public class Player extends Character {
         this.currentLocation = currentLocation;
     }
 
-    // Get the player's inventory
     public Inventory getInventory() {
         return inventory;
     }
 
-    // Add an item to the player's inventory
     public void addItemToInventory(Item item) {
         this.inventory.addItem(item);
     }
 
-    // Remove an item from the player's inventory
     public void removeItemFromInventory(Item item) {
         this.inventory.removeItem(item);
     }

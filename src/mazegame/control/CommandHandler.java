@@ -27,6 +27,8 @@ public class CommandHandler {
         availableCommands.put("listitems", new ListItemsCommand());
         availableCommands.put("getitem", new GetItemCommand());
         availableCommands.put("dropitem", new DropItemCommand());
+        availableCommands.put("equipitem", new EquipItemCommand());
+        availableCommands.put("unequipitem", new UnequipItemCommand());
         availableCommands.put("help", new HelpCommand(availableCommands.keySet()));
     }
 

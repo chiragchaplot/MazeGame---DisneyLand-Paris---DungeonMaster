@@ -2,11 +2,14 @@ package mazegame.entity;
 
 import mazegame.entity.items.Item;
 import mazegame.entity.items.Weapon;
+import mazegame.entity.items.Armor;
 
 public class Player extends Character {
     
     private Location currentLocation;
     private Inventory inventory;
+    private Weapon equippedWeapon;
+    private Armor equippedArmor;
 
     public Player() {
         this.inventory = new Inventory();
@@ -43,8 +46,29 @@ public class Player extends Character {
     public void removeItemFromInventory(Item item) {
         this.inventory.removeItem(item);
     }
-
+    
     public Item getItemById(int id) {
         return inventory.getItemById(id);
     }
+    
+    public void equipWeapon(Weapon weapon) {
+        this.equippedWeapon = weapon;
+    }
+
+    public void equipArmor(Armor armor) {
+        this.equippedArmor = armor;
+    }
+
+    public void unequipItem(Item item) {
+        if (item instanceof Weapon && this.equippedWeapon != null && this.equippedWeapon.equals(item)) {
+            this.equippedWeapon = null;
+        } else if (item instanceof Armor && this.equippedArmor != null && this.equippedArmor.equals(item)) {
+            this.equippedArmor = null;
+        }
+    }
+
+    public boolean isEquipped(Item item) {
+        return (item.equals(this.equippedWeapon) || item.equals(this.equippedArmor));
+    }
+
 }

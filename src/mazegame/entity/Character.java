@@ -49,7 +49,7 @@ public class Character {
 		return strength;
 	}
 
-	private void setStrength(int strength) {
+	protected void setStrength(int strength) {
 		this.strength = strength;
 	}
 }

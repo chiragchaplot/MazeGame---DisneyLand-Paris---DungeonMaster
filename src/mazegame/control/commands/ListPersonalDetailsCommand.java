@@ -13,6 +13,7 @@ public class ListPersonalDetailsCommand implements Command {
         details.append("Agility: ").append(thePlayer.getAgility()).append("\n");
         details.append("Life Points: ").append(thePlayer.getLifePoints()).append("\n");
         details.append("Strength: ").append(thePlayer.getStrength()).append("\n");
+        details.append("Weight: ").append(thePlayer.getWeight()).append("\n");
         details.append("Current Location: ").append(thePlayer.getCurrentLocation().getLabel()).append("\n");
         details.append("Inventory: ").append(thePlayer.getInventory().getItems().size()).append(" item(s)\n");
         return new CommandResponse(details.toString());

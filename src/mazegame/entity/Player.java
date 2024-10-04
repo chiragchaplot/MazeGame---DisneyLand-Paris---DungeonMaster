@@ -10,6 +10,7 @@ public class Player extends Character {
     private Inventory inventory;
     private Weapon equippedWeapon;
     private Armor equippedArmor;
+    private double weight;
 
     public Player() {
         this.inventory = new Inventory();
@@ -28,11 +29,12 @@ public class Player extends Character {
         setAgility(10);
         setLifePoints(10);
         setStrength(10);
+        this.weight = 10;
     }
 
     private void addDefaultWeapon() {
         Weapon defaultWeapon = new Weapon("Basic Sword", "A basic sword to start your journey", 3.0, 10.0, 5);
-        this.inventory.addItem(defaultWeapon);
+        addItemToInventory(defaultWeapon);
     }
 
     public Location getCurrentLocation() {
@@ -49,10 +51,12 @@ public class Player extends Character {
 
     public void addItemToInventory(Item item) {
         this.inventory.addItem(item);
+        this.weight -= item.getWeight();
     }
 
     public void removeItemFromInventory(Item item) {
         this.inventory.removeItem(item);
+        this.weight += item.getWeight();
     }
     
     public Item getItemById(int id) {
@@ -77,5 +81,9 @@ public class Player extends Character {
 
     public boolean isEquipped(Item item) {
         return (item.equals(this.equippedWeapon) || item.equals(this.equippedArmor));
+    }
+
+    public double getWeight() {
+        return weight;
     }
 }

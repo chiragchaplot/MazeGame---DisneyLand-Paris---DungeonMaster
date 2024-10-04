@@ -89,7 +89,7 @@ public class Location {
 
         StringBuilder itemDisplay = new StringBuilder("Items available at this location:\n");
         for (Item item : items) {
-            itemDisplay.append("[" + item.getId() + "]" + item.getLabel()).append(" - ").append(item.getDescription()).append("\n");
+            itemDisplay.append("[" + item.getId() + "] " + item.getLabel()).append(" - ").append(item.getDescription()).append("\n");
         }
 
         return itemDisplay.toString();

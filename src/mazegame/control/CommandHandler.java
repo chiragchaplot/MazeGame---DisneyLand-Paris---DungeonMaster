@@ -24,7 +24,8 @@ public class CommandHandler {
         availableCommands.put("quit", new QuitCommand());
         availableCommands.put("move", new MoveCommand());
         availableCommands.put("look", new LookCommand());
-        availableCommands.put("listitems", new ListItemsCommand());  // Ensure 'listItems' is lowercase
+        availableCommands.put("listitems", new ListItemsCommand());
+        availableCommands.put("getitem", new GetItemCommand());
     }
     
     private ArrayList<String> popArrayList() {
@@ -39,7 +40,7 @@ public class CommandHandler {
             return new CommandResponse("Please enter a command.");
         }
         
-        String normalizedInput = userInput.trim().toLowerCase();  // Normalize to lowercase for matching
+        String normalizedInput = userInput.trim().toLowerCase();
         ParsedInput validInput = theParser.parse(normalizedInput);
         Command theCommand = availableCommands.get(validInput.getCommand());
 

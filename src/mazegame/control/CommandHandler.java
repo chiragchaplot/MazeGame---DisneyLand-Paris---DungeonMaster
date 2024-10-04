@@ -13,8 +13,8 @@ public class CommandHandler {
     private Parser theParser;
     
     public CommandHandler() {
-        availableCommands = new HashMap<>();
-        commands = new ArrayList<>();
+        availableCommands = new HashMap<String, Command>();
+        commands = new ArrayList<String>();
         setupCommands();
         theParser = new Parser(popArrayList());
     }
@@ -26,28 +26,27 @@ public class CommandHandler {
         availableCommands.put("look", new LookCommand());
         availableCommands.put("listitems", new ListItemsCommand());
         availableCommands.put("getitem", new GetItemCommand());
+        availableCommands.put("help", new HelpCommand(availableCommands.keySet()));
     }
-    
+
     private ArrayList<String> popArrayList() {
         Set<String> set = availableCommands.keySet();
-        ArrayList<String> temp = new ArrayList<>();
-        temp.addAll(set);  // Collect available command keys
+        ArrayList<String> temp = new ArrayList<String>();
+        for (String key : set) {
+            temp.add(key);
+        }
         return temp;
     }
-    
+
     public CommandResponse processTurn(String userInput, Player thePlayer) {
         if (userInput == null || userInput.trim().isEmpty()) {
             return new CommandResponse("Please enter a command.");
         }
-        
-        String normalizedInput = userInput.trim().toLowerCase();
-        ParsedInput validInput = theParser.parse(normalizedInput);
+        ParsedInput validInput = theParser.parse(userInput);
         Command theCommand = availableCommands.get(validInput.getCommand());
-
         if (theCommand == null) {
             return new CommandResponse("Invalid command. Please try again.");
         }
-        
         return theCommand.execute(validInput, thePlayer);
     }
 }

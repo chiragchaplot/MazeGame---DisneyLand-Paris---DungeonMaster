@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import mazegame.boundary.IMazeData;
 import mazegame.control.commands.*;
 import mazegame.entity.Player;
 
@@ -12,8 +13,10 @@ public class CommandHandler {
     private HashMap<String, String> commandDescriptions; // New HashMap for command descriptions
     private ArrayList<String> commands;
     private Parser theParser;
+    private IMazeData mazeData;
     
-    public CommandHandler() {
+    public CommandHandler(IMazeData mazeData) {
+    	this.mazeData = mazeData;
         availableCommands = new HashMap<String, Command>();
         commandDescriptions = new HashMap<String, String>(); // Initialize descriptions
         commands = new ArrayList<String>();
@@ -63,6 +66,9 @@ public class CommandHandler {
 
         availableCommands.put("sellitem", new SellItemCommand());
         commandDescriptions.put("sellitem", "Sell an item to a vendor/shop.");
+        
+        availableCommands.put("getmazestatus", new GetMazeStatusCommand(mazeData));
+        commandDescriptions.put("getmazestatus", "Display the current maze status (number of locations and shops).");
 
         availableCommands.put("help", new HelpCommand(availableCommands.keySet(), commandDescriptions));
         commandDescriptions.put("help", "Show the list of available commands and their descriptions.");

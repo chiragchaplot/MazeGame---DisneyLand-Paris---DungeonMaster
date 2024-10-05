@@ -13,7 +13,7 @@ public class DungeonMaster {
 	 public DungeonMaster(IMazeData gameData, IMazeClient gameClient) {
          this.gameData = gameData;
          this.gameClient = gameClient;
-         playerTurnHandler = new CommandHandler();
+         playerTurnHandler = new CommandHandler(gameData);
      }
 
      public void printWelcome() {

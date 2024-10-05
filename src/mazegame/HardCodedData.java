@@ -8,245 +8,240 @@ import mazegame.entity.*;
 import mazegame.entity.items.*;
 
 public class HardCodedData implements IMazeData {
-	private Location startUp;
-	private Location sleepingBeautyCastle;
-	private Location adventureland;
-	private Location discoveryland;
-	private Location frontierland;
-	private Location fantasyland;
-	private Location piratesOfTheCaribbean;
-	private Location phantomManor;
-	private Location bigThunderMountain;
+    private Location startUp;
+    private Location sleepingBeautyCastle;
+    private Location adventureland;
+    private Location discoveryland;
+    private Location frontierland;
+    private Location fantasyland;
+    private Location piratesOfTheCaribbean;
+    private Location phantomManor;
+    private Location bigThunderMountain;
 
-	private Shop emporium;
-	private Shop thunderMesaMercantileBuilding;
-	private Shop laBoutiquest;
-	private Shop theLodge;
+    private Shop emporium;
+    private Shop thunderMesaMercantileBuilding;
+    private Shop laBoutiquest;
+    private Shop theLodge;
 
-	private ArrayList<Location> map = new ArrayList<Location>();
+    private ArrayList<Location> map = new ArrayList<>();
 
-	public HardCodedData() {
-		createWorldMap();
-	}
+    public HardCodedData() {
+        createWorldMap();
+    }
 
-	public Location getStartingLocation() {
-		return startUp;
-	}
+    public Location getStartingLocation() {
+        return startUp;
+    }
 
-	public String getWelcomeMessage() {
-		return "Welcome to the Mount Helanous";
-	}
+    public String getWelcomeMessage() {
+        return "Welcome to the Mount Helanous";
+    }
 
-	private void createWorldMap() {
-		createLocations();
-		createShops();
-		createNPCs();
-		connectLocations();
-		connectShops();
-		populateItemsInLocations();  // Populate items into non-startup locations
-	}
+    public ArrayList<Location> getLocations() {
+        return map; // Return all locations in the maze
+    }
 
-	private void createLocations() {
-		// Create Disneyland Paris-themed Locations
-		startUp = new Location("The grand entrance to Disneyland Paris, where your magical journey begins", "Disneyland Entrance");
-		sleepingBeautyCastle = new Location("The iconic Sleeping Beauty Castle, the heart of Disneyland Paris", "Sleeping Beauty Castle");
-		adventureland = new Location("An exotic and adventurous land filled with surprises", "Adventureland");
-		discoveryland = new Location("A futuristic world of innovation and exploration", "Discoveryland");
-		frontierland = new Location("A rugged, wild west town filled with adventure", "Frontierland");
-		fantasyland = new Location("A whimsical, enchanting land where fairy tales come to life", "Fantasyland");
-		piratesOfTheCaribbean = new Location("A thrilling pirate adventure on the high seas", "Pirates of the Caribbean");
-		phantomManor = new Location("A spooky, mysterious haunted house experience", "Phantom Manor");
-		bigThunderMountain = new Location("A thrilling runaway mine train ride through the wild west", "Big Thunder Mountain");
+    private void createWorldMap() {
+        createLocations();
+        createShops();
+        createNPCs();
+        connectLocations();
+        connectShops();
+        populateItemsInLocations();
+    }
 
-		// Add locations to the map
-		map.add(startUp);
-		map.add(sleepingBeautyCastle);
-		map.add(adventureland);
-		map.add(discoveryland);
-		map.add(frontierland);
-		map.add(fantasyland);
-		map.add(piratesOfTheCaribbean);
-		map.add(phantomManor);
-		map.add(bigThunderMountain);
-	}
+    private void createLocations() {
+        startUp = new Location("The grand entrance to Disneyland Paris, where your magical journey begins", "Disneyland Entrance");
+        sleepingBeautyCastle = new Location("The iconic Sleeping Beauty Castle, the heart of Disneyland Paris", "Sleeping Beauty Castle");
+        adventureland = new Location("An exotic and adventurous land filled with surprises", "Adventureland");
+        discoveryland = new Location("A futuristic world of innovation and exploration", "Discoveryland");
+        frontierland = new Location("A rugged, wild west town filled with adventure", "Frontierland");
+        fantasyland = new Location("A whimsical, enchanting land where fairy tales come to life", "Fantasyland");
+        piratesOfTheCaribbean = new Location("A thrilling pirate adventure on the high seas", "Pirates of the Caribbean");
+        phantomManor = new Location("A spooky, mysterious haunted house experience", "Phantom Manor");
+        bigThunderMountain = new Location("A thrilling runaway mine train ride through the wild west", "Big Thunder Mountain");
 
-	private void createShops() {
-		// Create Disneyland Paris-themed Shops
-		emporium = new Shop("A classic shop on Main Street USA offering Disney-themed merchandise", "Emporium");
-		thunderMesaMercantileBuilding = new Shop("A western-themed shop offering souvenirs and clothing", "Thunder Mesa Mercantile Building");
-		laBoutiquest = new Shop("A boutique featuring exclusive Disney jewelry and accessories", "La Boutique du Château");
-		theLodge = new Shop("A cozy shop in Frontierland with wilderness-themed gifts", "The Lodge");
+        map.add(startUp);
+        map.add(sleepingBeautyCastle);
+        map.add(adventureland);
+        map.add(discoveryland);
+        map.add(frontierland);
+        map.add(fantasyland);
+        map.add(piratesOfTheCaribbean);
+        map.add(phantomManor);
+        map.add(bigThunderMountain);
+    }
 
-		// Add shops to the map
-		map.add(emporium);
-		map.add(thunderMesaMercantileBuilding);
-		map.add(laBoutiquest);
-		map.add(theLodge);
+    private void createShops() {
+        emporium = new Shop("A classic shop on Main Street USA offering Disney-themed merchandise", "Emporium");
+        thunderMesaMercantileBuilding = new Shop("A western-themed shop offering souvenirs and clothing", "Thunder Mesa Mercantile Building");
+        laBoutiquest = new Shop("A boutique featuring exclusive Disney jewelry and accessories", "La Boutique du Château");
+        theLodge = new Shop("A cozy shop in Frontierland with wilderness-themed gifts", "The Lodge");
 
-		populateShopWithItems(emporium);
-		populateShopWithItems(thunderMesaMercantileBuilding);
-		populateShopWithItems(laBoutiquest);
-		populateShopWithItems(theLodge);
-	}
+        map.add(emporium);
+        map.add(thunderMesaMercantileBuilding);
+        map.add(laBoutiquest);
+        map.add(theLodge);
 
-	private void createNPCs() {
-		// Create Non-Player Characters (NPC)
-		RandomNumberGenerator gen = new RandomNumberGenerator();
-		NonPlayableCharacter mickeyMouse = new NonPlayableCharacter("Mickey Mouse");
-		mickeyMouse.setLifePoints(20);
-		mickeyMouse.setHostile(false);
-		mickeyMouse.setConversationListMap(createNonHostileConversation1().getAllConversations());
+        populateShopWithItems(emporium);
+        populateShopWithItems(thunderMesaMercantileBuilding);
+        populateShopWithItems(laBoutiquest);
+        populateShopWithItems(theLodge);
+    }
 
-		NonPlayableCharacter maleficent = new NonPlayableCharacter("Maleficent");
-		maleficent.setLifePoints(25);
-		maleficent.setHostile(true);
-		maleficent.setConversationListMap(createHostileConversation().getAllConversations());
+    private void createNPCs() {
+        RandomNumberGenerator gen = new RandomNumberGenerator();
+        NonPlayableCharacter mickeyMouse = new NonPlayableCharacter("Mickey Mouse");
+        mickeyMouse.setLifePoints(20);
+        mickeyMouse.setHostile(false);
+        mickeyMouse.setConversationListMap(createNonHostileConversation1().getAllConversations());
 
-		NonPlayableCharacter goofy = new NonPlayableCharacter("Goofy");
-		goofy.setHostile(false);
-		goofy.setConversationListMap(createNonHostileConversation2().getAllConversations());
-	}
+        NonPlayableCharacter maleficent = new NonPlayableCharacter("Maleficent");
+        maleficent.setLifePoints(25);
+        maleficent.setHostile(true);
+        maleficent.setConversationListMap(createHostileConversation().getAllConversations());
 
-	private void connectLocations() {
-		// Connect Locations (Disneyland Paris Attractions)
-		startUp.addExit("north", new Exit("Sleeping Beauty Castle", sleepingBeautyCastle));
-		sleepingBeautyCastle.addExit("south", new Exit("Disneyland Entrance", startUp));  // Reverse connection
+        NonPlayableCharacter goofy = new NonPlayableCharacter("Goofy");
+        goofy.setHostile(false);
+        goofy.setConversationListMap(createNonHostileConversation2().getAllConversations());
+    }
 
-		startUp.addExit("west", new Exit("Adventureland", adventureland));
-		adventureland.addExit("east", new Exit("Disneyland Entrance", startUp));  // Reverse connection
+    private void connectLocations() {
+        startUp.addExit("north", new Exit("Sleeping Beauty Castle", sleepingBeautyCastle));
+        sleepingBeautyCastle.addExit("south", new Exit("Disneyland Entrance", startUp));
 
-		startUp.addExit("east", new Exit("Discoveryland", discoveryland));
-		discoveryland.addExit("west", new Exit("Disneyland Entrance", startUp));  // Reverse connection
+        startUp.addExit("west", new Exit("Adventureland", adventureland));
+        adventureland.addExit("east", new Exit("Disneyland Entrance", startUp));
 
-		startUp.addExit("southwest", new Exit("Frontierland", frontierland));
-		frontierland.addExit("northeast", new Exit("Disneyland Entrance", startUp));  // Reverse connection
+        startUp.addExit("east", new Exit("Discoveryland", discoveryland));
+        discoveryland.addExit("west", new Exit("Disneyland Entrance", startUp));
 
-		startUp.addExit("southeast", new Exit("Fantasyland", fantasyland));
-		fantasyland.addExit("northwest", new Exit("Disneyland Entrance", startUp));  // Reverse connection
+        startUp.addExit("southwest", new Exit("Frontierland", frontierland));
+        frontierland.addExit("northeast", new Exit("Disneyland Entrance", startUp));
 
-		sleepingBeautyCastle.addExit("northwest", new Exit("Pirates of the Caribbean", piratesOfTheCaribbean));
-		piratesOfTheCaribbean.addExit("southeast", new Exit("Sleeping Beauty Castle", sleepingBeautyCastle));  // Reverse connection
+        startUp.addExit("southeast", new Exit("Fantasyland", fantasyland));
+        fantasyland.addExit("northwest", new Exit("Disneyland Entrance", startUp));
 
-		sleepingBeautyCastle.addExit("northeast", new Exit("Phantom Manor", phantomManor));
-		phantomManor.addExit("southwest", new Exit("Sleeping Beauty Castle", sleepingBeautyCastle));  // Reverse connection
+        sleepingBeautyCastle.addExit("northwest", new Exit("Pirates of the Caribbean", piratesOfTheCaribbean));
+        piratesOfTheCaribbean.addExit("southeast", new Exit("Sleeping Beauty Castle", sleepingBeautyCastle));
 
-		adventureland.addExit("north", new Exit("Big Thunder Mountain", bigThunderMountain));
-		bigThunderMountain.addExit("south", new Exit("Adventureland", adventureland));  // Reverse connection
-	}
+        sleepingBeautyCastle.addExit("northeast", new Exit("Phantom Manor", phantomManor));
+        phantomManor.addExit("southwest", new Exit("Sleeping Beauty Castle", sleepingBeautyCastle));
 
-	private void connectShops() {
-		startUp.addExit("northwest", new Exit("Emporium", emporium));
-		emporium.addExit("southeast", new Exit("Disneyland Entrance", startUp));  // Reverse connection
+        adventureland.addExit("north", new Exit("Big Thunder Mountain", bigThunderMountain));
+        bigThunderMountain.addExit("south", new Exit("Adventureland", adventureland));
+    }
 
-		startUp.addExit("northeast", new Exit("Thunder Mesa Mercantile Building", thunderMesaMercantileBuilding));
-		thunderMesaMercantileBuilding.addExit("southwest", new Exit("Disneyland Entrance", startUp));  // Reverse connection
+    private void connectShops() {
+        startUp.addExit("northwest", new Exit("Emporium", emporium));
+        emporium.addExit("southeast", new Exit("Disneyland Entrance", startUp));
 
-		emporium.addExit("north", new Exit("Big Thunder Mountain", bigThunderMountain));
-		bigThunderMountain.addExit("south", new Exit("Emporium", emporium));  // Reverse connection
+        startUp.addExit("northeast", new Exit("Thunder Mesa Mercantile Building", thunderMesaMercantileBuilding));
+        thunderMesaMercantileBuilding.addExit("southwest", new Exit("Disneyland Entrance", startUp));
 
-		thunderMesaMercantileBuilding.addExit("northwest", new Exit("Pirates of the Caribbean", piratesOfTheCaribbean));
-		piratesOfTheCaribbean.addExit("southeast", new Exit("Thunder Mesa Mercantile Building", thunderMesaMercantileBuilding));  // Reverse connection
+        emporium.addExit("north", new Exit("Big Thunder Mountain", bigThunderMountain));
+        bigThunderMountain.addExit("south", new Exit("Emporium", emporium));
 
-		laBoutiquest.addExit("south", new Exit("Sleeping Beauty Castle", sleepingBeautyCastle));
-		sleepingBeautyCastle.addExit("north", new Exit("La Boutique du Château", laBoutiquest));  // Reverse connection
+        thunderMesaMercantileBuilding.addExit("northwest", new Exit("Pirates of the Caribbean", piratesOfTheCaribbean));
+        piratesOfTheCaribbean.addExit("southeast", new Exit("Thunder Mesa Mercantile Building", thunderMesaMercantileBuilding));
 
-		theLodge.addExit("west", new Exit("Phantom Manor", phantomManor));
-		phantomManor.addExit("east", new Exit("The Lodge", theLodge));  // Reverse connection
-	}
+        laBoutiquest.addExit("south", new Exit("Sleeping Beauty Castle", sleepingBeautyCastle));
+        sleepingBeautyCastle.addExit("north", new Exit("La Boutique du Château", laBoutiquest));
 
-	private void populateItemsInLocations() {
-	    ArrayList<Weapon> weapons = Weapon.createWeaponList();
-	    ArrayList<Armor> armors = Armor.createArmorList();
-	    ArrayList<Shield> shields = Shield.createShieldList();
-	    ArrayList<Potion> potions = Potion.createPotionList();
+        theLodge.addExit("west", new Exit("Phantom Manor", phantomManor));
+        phantomManor.addExit("east", new Exit("The Lodge", theLodge));
+    }
 
-	    // Combine all items into a single list for random selection
-	    ArrayList<Item> allItems = new ArrayList<>();
-	    allItems.addAll(weapons);
-	    allItems.addAll(armors);
-	    allItems.addAll(shields);
-	    allItems.addAll(potions);
+    private void populateItemsInLocations() {
+        ArrayList<Weapon> weapons = Weapon.createWeaponList();
+        ArrayList<Armor> armors = Armor.createArmorList();
+        ArrayList<Shield> shields = Shield.createShieldList();
+        ArrayList<Potion> potions = Potion.createPotionList();
 
-	    // Random object for random selection
-	    Random random = new Random();
+        ArrayList<Item> allItems = new ArrayList<>();
+        allItems.addAll(weapons);
+        allItems.addAll(armors);
+        allItems.addAll(shields);
+        allItems.addAll(potions);
 
-	    // Method to randomly assign two items to a location
-	    assignRandomItemsToLocation(sleepingBeautyCastle, allItems, random);
-	    assignRandomItemsToLocation(adventureland, allItems, random);
-	    assignRandomItemsToLocation(discoveryland, allItems, random);
-	    assignRandomItemsToLocation(frontierland, allItems, random);
-	    assignRandomItemsToLocation(fantasyland, allItems, random);
-	    assignRandomItemsToLocation(piratesOfTheCaribbean, allItems, random);
-	    assignRandomItemsToLocation(phantomManor, allItems, random);
-	    assignRandomItemsToLocation(bigThunderMountain, allItems, random);
-	}
+        Random random = new Random();
 
-	// Method to randomly assign two items to a location
-	private void assignRandomItemsToLocation(Location location, ArrayList<Item> allItems, Random random) {
-	    // Pick two random items
-	    int firstItemIndex = random.nextInt(allItems.size());
-	    int secondItemIndex;
-	    do {
-	        secondItemIndex = random.nextInt(allItems.size());
-	    } while (secondItemIndex == firstItemIndex);  // Ensure two different items
+        assignRandomItemsToLocation(sleepingBeautyCastle, allItems, random);
+        assignRandomItemsToLocation(adventureland, allItems, random);
+        assignRandomItemsToLocation(discoveryland, allItems, random);
+        assignRandomItemsToLocation(frontierland, allItems, random);
+        assignRandomItemsToLocation(fantasyland, allItems, random);
+        assignRandomItemsToLocation(piratesOfTheCaribbean, allItems, random);
+        assignRandomItemsToLocation(phantomManor, allItems, random);
+        assignRandomItemsToLocation(bigThunderMountain, allItems, random);
+    }
 
-	    Item firstItem = allItems.get(firstItemIndex);
-	    Item secondItem = allItems.get(secondItemIndex);
+    private void assignRandomItemsToLocation(Location location, ArrayList<Item> allItems, Random random) {
+        int firstItemIndex = random.nextInt(allItems.size());
+        int secondItemIndex;
+        do {
+            secondItemIndex = random.nextInt(allItems.size());
+        } while (secondItemIndex == firstItemIndex);
 
-	    // Add these items to the location
-	    location.addItems(firstItem, secondItem);
-	}
+        Item firstItem = allItems.get(firstItemIndex);
+        Item secondItem = allItems.get(secondItemIndex);
 
+        location.addItems(firstItem, secondItem);
+    }
 
-	private ConversationList createNonHostileConversation1() {
-		ConversationList conversationList = new ConversationList();
-		conversationList.addConversation("hello", "Hi there! Welcome to Disneyland Paris. How can I help you today?");
-		conversationList.addConversation("good", "Glad to hear you're enjoying your time at Disneyland! Did you see Sleeping Beauty Castle yet?");
-		conversationList.addConversation("castle", "The Sleeping Beauty Castle is just to the north. It's magical!");
-		conversationList.addConversation("adventureland", "Head west to Adventureland for some thrilling rides! Watch out for the pirates!");
-		conversationList.addConversation("bye", "See you around, pal! Have a magical day!");
-		return conversationList;
-	}
+    private ConversationList createNonHostileConversation1() {
+        ConversationList conversationList = new ConversationList();
+        conversationList.addConversation("hello", "Hi there! Welcome to Disneyland Paris. How can I help you today?");
+        conversationList.addConversation("good", "Glad to hear you're enjoying your time at Disneyland! Did you see Sleeping Beauty Castle yet?");
+        conversationList.addConversation("castle", "The Sleeping Beauty Castle is just to the north. It's magical!");
+        conversationList.addConversation("adventureland", "Head west to Adventureland for some thrilling rides! Watch out for the pirates!");
+        conversationList.addConversation("bye", "See you around, pal! Have a magical day!");
+        return conversationList;
+    }
 
-	private ConversationList createNonHostileConversation2() {
-		ConversationList conversationList = new ConversationList();
-		conversationList.addConversation("hello", "Gawrsh! Howdy, pal! What brings you to Disneyland?");
-		conversationList.addConversation("adventureland", "Oh boy! Adventureland is my favorite! Just head west from here.");
-		conversationList.addConversation("phantom", "Phantom Manor? That's one spooky place! It's northeast from Sleeping Beauty Castle.");
-		conversationList.addConversation("bigthunder", "Big Thunder Mountain? Yeehaw! You’ll find it north of Adventureland.");
-		conversationList.addConversation("bye", "Take care, and have a great time at Disneyland!");
-		return conversationList;
-	}
+    private ConversationList createNonHostileConversation2() {
+        ConversationList conversationList = new ConversationList();
+        conversationList.addConversation("hello", "Gawrsh! Howdy, pal! What brings you to Disneyland?");
+        conversationList.addConversation("adventureland", "Oh boy! Adventureland is my favorite! Just head west from here.");
+        conversationList.addConversation("phantom", "Phantom Manor? That's one spooky place! It's northeast from Sleeping Beauty Castle.");
+        conversationList.addConversation("bigthunder", "Big Thunder Mountain? Yeehaw! You’ll find it north of Adventureland.");
+        conversationList.addConversation("bye", "Take care, and have a great time at Disneyland!");
+        return conversationList;
+    }
 
-	private ConversationList createHostileConversation() {
-		ConversationList conversationList = new ConversationList();
-		conversationList.addConversation("hello", "Why have you disturbed me? I do not take kindly to trespassers.");
-		conversationList.addConversation("fight", "You dare challenge me? Prepare for your demise!");
-		conversationList.addConversation("flee", "Run while you can, but you will never escape my wrath.");
-		conversationList.addConversation("defeated", "Pathetic fool! You were no match for my power.");
-		return conversationList;
-	}
+    private ConversationList createHostileConversation() {
+        ConversationList conversationList = new ConversationList();
+        conversationList.addConversation("hello", "Why have you disturbed me? I do not take kindly to trespassers.");
+        conversationList.addConversation("fight", "You dare challenge me? Prepare for your demise!");
+        conversationList.addConversation("flee", "Run while you can, but you will never escape my wrath.");
+        conversationList.addConversation("defeated", "Pathetic fool! You were no match for my power.");
+        return conversationList;
+    }
 
-	private void populateShopWithItems(Shop shop) {
-		ArrayList<Weapon> weapons = Weapon.createWeaponList();
-		ArrayList<Armor> armors = Armor.createArmorList();
-		ArrayList<Shield> shields = Shield.createShieldList();
-		ArrayList<Potion> potions = Potion.createPotionList();
+    private void populateShopWithItems(Shop shop) {
+        ArrayList<Weapon> weapons = Weapon.createWeaponList();
+        ArrayList<Armor> armors = Armor.createArmorList();
+        ArrayList<Shield> shields = Shield.createShieldList();
+        ArrayList<Potion> potions = Potion.createPotionList();
 
-		for (Weapon weapon : weapons) {
-			shop.addItemForSale(weapon);
-		}
+        for (Weapon weapon : weapons) {
+            shop.addItemForSale(weapon);
+        }
 
-		for (Armor armor : armors) {
-			shop.addItemForSale(armor);
-		}
+        for (Armor armor : armors) {
+            shop.addItemForSale(armor);
+        }
 
-		for (Shield shield : shields) {
-			shop.addItemForSale(shield);
-		}
+        for (Shield shield : shields) {
+            shop.addItemForSale(shield);
+        }
 
-		for (Potion potion : potions) {
-			shop.addItemForSale(potion);
-		}
-	}
+        for (Potion potion : potions) {
+            shop.addItemForSale(potion);
+        }
+    }
+
+    public ArrayList<Location> getMap() {
+        return map;
+    }
 }

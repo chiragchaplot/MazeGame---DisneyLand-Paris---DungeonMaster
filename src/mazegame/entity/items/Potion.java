@@ -2,6 +2,8 @@ package mazegame.entity.items;
 
 import java.util.ArrayList;
 
+import mazegame.entity.RandomNumberGenerator;
+
 public class Potion extends Item {
     private int restorePoints;
 
@@ -26,11 +28,12 @@ public class Potion extends Item {
     // Static method to return a list of potions
     public static ArrayList<Potion> createPotionList() {
         ArrayList<Potion> potions = new ArrayList<>();
-        potions.add(new Potion("Health Potion", "Restores health", 0.5, 5.0, 20));
-        potions.add(new Potion("Stamina Potion", "Restores stamina", 0.5, 7.0, 15));
-        potions.add(new Potion("Mana Potion", "Restores magical energy", 0.5, 10.0, 25));
-        potions.add(new Potion("Antidote", "Cures poison", 0.3, 8.0, 0));
-        potions.add(new Potion("Strength Potion", "Boosts strength temporarily", 0.4, 20.0, 0));
+        RandomNumberGenerator gen = new RandomNumberGenerator();
+        potions.add(new Potion("Health Potion", "Restores health", 0.5, 5.0, gen.generateRandomInRange(0, 1)));
+        potions.add(new Potion("Stamina Potion", "Restores stamina", 0.5, 7.0, gen.generateRandomInRange(0, 1)));
+        potions.add(new Potion("Mana Potion", "Restores magical energy", 0.5, 10.0, gen.generateRandomInRange(0, 1)));
+        potions.add(new Potion("Antidote", "Cures poison", 0.3, 8.0, gen.generateRandomInRange(0, 1)));
+        potions.add(new Potion("Strength Potion", "Boosts strength temporarily", 0.4, 20.0, gen.generateRandomInRange(0, 1)));
         return potions;
     }
 }

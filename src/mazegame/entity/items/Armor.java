@@ -2,6 +2,8 @@ package mazegame.entity.items;
 
 import java.util.ArrayList;
 
+import mazegame.entity.RandomNumberGenerator;
+
 public class Armor extends Item {
     private int defenseBonus;
 
@@ -26,11 +28,12 @@ public class Armor extends Item {
     // Static method to return a list of armors
     public static ArrayList<Armor> createArmorList() {
         ArrayList<Armor> armors = new ArrayList<>();
-        armors.add(new Armor("Padded", "A padded armor", 4.0, 5.0, 1));
-        armors.add(new Armor("Leather", "A leather armor", 6.0, 10.0, 2));
-        armors.add(new Armor("Chainmail", "A heavy chainmail armor", 10.0, 30.0, 8));
-        armors.add(new Armor("Plate Armor", "A suit of plate armor", 15.0, 50.0, 12));
-        armors.add(new Armor("Dragon Scale", "Armor made from dragon scales", 12.0, 100.0, 15));
+        RandomNumberGenerator gen = new RandomNumberGenerator();
+        armors.add(new Armor("Padded", "A padded armor", 4.0, 5.0, gen.generateRandomInRange(0, 2)));
+        armors.add(new Armor("Leather", "A leather armor", 6.0, 10.0, gen.generateRandomInRange(0, 2)));
+        armors.add(new Armor("Chainmail", "A heavy chainmail armor", 10.0, 30.0, gen.generateRandomInRange(0, 2)));
+        armors.add(new Armor("Plate Armor", "A suit of plate armor", 15.0, 50.0, gen.generateRandomInRange(0, 2)));
+        armors.add(new Armor("Dragon Scale", "Armor made from dragon scales", 12.0, 100.0, gen.generateRandomInRange(0, 2)));
         return armors;
     }
 }

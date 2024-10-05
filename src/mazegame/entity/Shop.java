@@ -42,7 +42,11 @@ public class Shop extends Location {
         StringBuilder itemsDisplay = new StringBuilder("Items for sale:\n");
 
         for (Item item : itemsForSale) {
-            itemsDisplay.append("[" + item.getId() + "] " + item.getLabel()).append(" - ").append(item.getDescription()).append("\n");
+            itemsDisplay.append("[").append(item.getId()).append("] ")
+                .append(item.getLabel()).append(" - ")
+                .append(item.getDescription()).append("\n")
+                .append("Weight: ").append(item.getWeight()).append("\n")
+                .append("Value: ").append(item.getValue()).append("\n");
         }
 
         return itemsDisplay.toString();

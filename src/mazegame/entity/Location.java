@@ -2,7 +2,6 @@ package mazegame.entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import mazegame.entity.items.Item;
 
 public class Location {
@@ -10,10 +9,12 @@ public class Location {
     private String description;
     private String label;
     private ArrayList<Item> items;
+    private ArrayList<NonPlayableCharacter> npcs;
 
     public Location() {
         this.items = new ArrayList<>();
         this.exits = new HashMap<>();
+        this.npcs = new ArrayList<>();
     }
 
     public Location(String description, String label) {
@@ -93,6 +94,14 @@ public class Location {
         }
 
         return itemDisplay.toString();
+    }
+
+    public void addNPC(NonPlayableCharacter npc) {
+        npcs.add(npc);
+    }
+
+    public ArrayList<NonPlayableCharacter> getNPCs() {
+        return npcs;
     }
 
     @Override

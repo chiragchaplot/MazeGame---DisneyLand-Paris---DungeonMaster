@@ -44,10 +44,10 @@ public class HardCodedData implements IMazeData {
     private void createWorldMap() {
         createLocations();
         createShops();
-        createNPCs();
         connectLocations();
         connectShops();
         populateItemsInLocations();
+        createNPCs();
     }
 
     private void createLocations() {
@@ -95,15 +95,18 @@ public class HardCodedData implements IMazeData {
         mickeyMouse.setLifePoints(20);
         mickeyMouse.setHostile(false);
         mickeyMouse.setConversationListMap(createNonHostileConversation1().getAllConversations());
+        startUp.addNPC(mickeyMouse);
 
         NonPlayableCharacter maleficent = new NonPlayableCharacter("Maleficent");
         maleficent.setLifePoints(25);
         maleficent.setHostile(true);
         maleficent.setConversationListMap(createHostileConversation().getAllConversations());
+        phantomManor.addNPC(maleficent);
 
         NonPlayableCharacter goofy = new NonPlayableCharacter("Goofy");
         goofy.setHostile(false);
         goofy.setConversationListMap(createNonHostileConversation2().getAllConversations());
+        adventureland.addNPC(goofy);
     }
 
     private void connectLocations() {

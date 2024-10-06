@@ -29,11 +29,11 @@ public class Armor extends Item {
     public static ArrayList<Armor> createArmorList() {
         ArrayList<Armor> armors = new ArrayList<>();
         RandomNumberGenerator gen = new RandomNumberGenerator();
-        armors.add(new Armor("Padded", "A padded armor", 4.0, 5.0, gen.generateRandomInRange(0, 2)));
-        armors.add(new Armor("Leather", "A leather armor", 6.0, 10.0, gen.generateRandomInRange(0, 2)));
-        armors.add(new Armor("Chainmail", "A heavy chainmail armor", 10.0, 30.0, gen.generateRandomInRange(0, 2)));
-        armors.add(new Armor("Plate Armor", "A suit of plate armor", 15.0, 50.0, gen.generateRandomInRange(0, 2)));
-        armors.add(new Armor("Dragon Scale", "Armor made from dragon scales", 12.0, 100.0, gen.generateRandomInRange(0, 2)));
+        armors.add(new Armor("Padded", "A padded armor", gen.generateRandomInRange(0, 5), 5.0, gen.generateRandomInRange(0, 2)));
+        armors.add(new Armor("Leather", "A leather armor", gen.generateRandomInRange(0, 5), 10.0, gen.generateRandomInRange(0, 2)));
+        armors.add(new Armor("Chainmail", "A heavy chainmail armor", gen.generateRandomInRange(0, 5), 30.0, gen.generateRandomInRange(0, 2)));
+        armors.add(new Armor("Plate Armor", "A suit of plate armor", gen.generateRandomInRange(0, 5), 50.0, gen.generateRandomInRange(0, 2)));
+        armors.add(new Armor("Dragon Scale", "Armor made from dragon scales", gen.generateRandomInRange(0, 5), 100.0, gen.generateRandomInRange(0, 2)));
         return armors;
     }
 }

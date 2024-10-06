@@ -29,11 +29,11 @@ public class Shield extends Item {
     public static ArrayList<Shield> createShieldList() {
         ArrayList<Shield> shields = new ArrayList<>();
         RandomNumberGenerator gen = new RandomNumberGenerator();
-        shields.add(new Shield("Wooden Shield", "A wooden shield", 5.0, 2.0, gen.generateRandomInRange(0, 5)));
-        shields.add(new Shield("Steel Shield", "A steel shield", 15.0, 20.0, gen.generateRandomInRange(0, 5)));
-        shields.add(new Shield("Buckler", "A small buckler shield", 5.0, 15.0, gen.generateRandomInRange(0, 5)));
-        shields.add(new Shield("Kite Shield", "A large kite-shaped shield", 10.0, 25.0, gen.generateRandomInRange(0, 5)));
-        shields.add(new Shield("Tower Shield", "A massive shield", 20.0, 50.0, gen.generateRandomInRange(0, 5)));
+        shields.add(new Shield("Wooden Shield", "A wooden shield", gen.generateRandomInRange(0, 5), 2.0, gen.generateRandomInRange(0, 5)));
+        shields.add(new Shield("Steel Shield", "A steel shield", gen.generateRandomInRange(0, 5), 20.0, gen.generateRandomInRange(0, 5)));
+        shields.add(new Shield("Buckler", "A small buckler shield", gen.generateRandomInRange(0, 5), 15.0, gen.generateRandomInRange(0, 5)));
+        shields.add(new Shield("Kite Shield", "A large kite-shaped shield", gen.generateRandomInRange(0, 5), 25.0, gen.generateRandomInRange(0, 5)));
+        shields.add(new Shield("Tower Shield", "A massive shield", gen.generateRandomInRange(0, 5), 50.0, gen.generateRandomInRange(0, 5)));
         return shields;
     }
 }

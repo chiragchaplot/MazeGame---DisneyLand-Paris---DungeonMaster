@@ -27,6 +27,7 @@ public class DungeonMaster {
          gameClient.playerMessage("Welcome " + playerName + "\n\n");
          gameClient.playerMessage("You find yourself looking at ");
          gameClient.playerMessage(gameData.getStartingLocation().getDescription());
+         gameClient.playerMessage("\n\nType 'help' for available commands");
      }
 
      public void runGame() {

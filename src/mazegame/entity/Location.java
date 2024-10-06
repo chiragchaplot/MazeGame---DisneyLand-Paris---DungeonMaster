@@ -106,7 +106,7 @@ public class Location {
 
     @Override
     public String toString() {
-        StringBuilder exitsDisplay = new StringBuilder("Available exits:\n");
+    	StringBuilder exitsDisplay = new StringBuilder("Available exits:\n");
         StringBuilder shopExits = new StringBuilder("Shops nearby:\n");
 
         for (String key : this.exits.keySet()) {
@@ -118,8 +118,16 @@ public class Location {
             }
         }
 
+        StringBuilder npcDisplay = new StringBuilder();
+        if (!npcs.isEmpty()) {
+            npcDisplay.append("NPCs at this location:\n");
+            for (NonPlayableCharacter npc : npcs) {
+                npcDisplay.append(npc.toString()).append("\n");
+            }
+        }
         return "**********\n" + this.label + " - " + this.description + "\n**********\n" + exitsDisplay.toString() +
                (shopExits.length() > "Shops nearby:\n".length() ? shopExits.toString() : "No shops nearby.\n") +
-                "\n**********\n" + displayItems();
+               "\n**********\n" + displayItems() + 
+               "\n**********\n" + npcDisplay.toString();
     }
 }

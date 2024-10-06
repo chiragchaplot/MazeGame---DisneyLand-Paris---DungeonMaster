@@ -4,18 +4,22 @@ import mazegame.entity.items.Item;
 import mazegame.entity.items.Weapon;
 import mazegame.entity.items.Armor;
 
-public class Player extends Character {
+import java.util.Scanner;
+
+public class Player extends Character implements Attacker {
     
     private Location currentLocation;
     private Inventory inventory;
     private Weapon equippedWeapon;
     private Armor equippedArmor;
     private double weight;
-
+    private Scanner scanner;
+    
     public Player() {
         this.inventory = new Inventory();
         setDefaultStats();
         addDefaultWeapon();
+        this.scanner = new Scanner(System.in);
     }
 
     public Player(String name) {
@@ -23,6 +27,7 @@ public class Player extends Character {
         this.inventory = new Inventory();
         setDefaultStats();
         addDefaultWeapon();
+        this.scanner = new Scanner(System.in);
     }
 
     private void setDefaultStats() {
@@ -85,5 +90,18 @@ public class Player extends Character {
 
     public double getWeight() {
         return weight;
+    }
+    
+    public void attack(Attacker target) {
+        target.takeDamage(this.getStrength());
+    }
+
+    public void takeDamage(int damage) {
+        setLifePoints(getLifePoints() - damage);
+    }
+    
+    public String getInput() {
+        System.out.println("Enter your action (ATTACK, DEFEND, FLEE): ");
+        return scanner.nextLine().trim().toLowerCase();
     }
 }

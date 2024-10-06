@@ -49,4 +49,15 @@ public class Character {
 	protected void setStrength(int strength) {
 		this.strength = strength;
 	}
+	
+	public boolean isAlive() {
+        return lifePoints > 0;
+    }
+	
+	public void takeDamage(int damage) {
+        lifePoints -= damage;
+        if (lifePoints < 0) {
+            lifePoints = 0;
+        }
+    }
 }

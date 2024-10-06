@@ -2,7 +2,7 @@ package mazegame.entity;
 
 import java.util.HashMap;
 
-public class NonPlayableCharacter extends Character {
+public class NonPlayableCharacter extends Character implements Attacker {
     private boolean hostile;
     private HashMap<String, String> conversationListMap;
 
@@ -42,5 +42,13 @@ public class NonPlayableCharacter extends Character {
     @Override
     public String toString() {
         return getName() + " - " + (hostile ? "Hostile" : "Friendly");
+    }
+    
+    public void attack(Attacker target) {
+        target.takeDamage(this.getStrength());
+    }
+
+    public void takeDamage(int damage) {
+        setLifePoints(getLifePoints() - damage);
     }
 }

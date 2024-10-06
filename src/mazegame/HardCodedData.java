@@ -92,13 +92,13 @@ public class HardCodedData implements IMazeData {
     private void createNPCs() {
         RandomNumberGenerator gen = new RandomNumberGenerator();
         NonPlayableCharacter mickeyMouse = new NonPlayableCharacter("Mickey Mouse");
-        mickeyMouse.setLifePoints(20);
+        mickeyMouse.setLifePoints(0);
         mickeyMouse.setHostile(false);
         mickeyMouse.setConversationListMap(createNonHostileConversation1().getAllConversations());
         startUp.addNPC(mickeyMouse);
 
         NonPlayableCharacter maleficent = new NonPlayableCharacter("Maleficent");
-        maleficent.setLifePoints(25);
+        maleficent.setLifePoints(10);
         maleficent.setHostile(true);
         maleficent.setConversationListMap(createHostileConversation().getAllConversations());
         phantomManor.addNPC(maleficent);
@@ -145,8 +145,8 @@ public class HardCodedData implements IMazeData {
         emporium.addExit("north", new Exit("Big Thunder Mountain", bigThunderMountain));
         bigThunderMountain.addExit("south", new Exit("Emporium", emporium));
 
-        thunderMesaMercantileBuilding.addExit("northwest", new Exit("Phantom Manor", phantomManor));
-        phantomManor.addExit("southeast", new Exit("Thunder Mesa Mercantile Building", thunderMesaMercantileBuilding));
+        thunderMesaMercantileBuilding.addExit("northwest", new Exit("Pirates of the Caribbean", piratesOfTheCaribbean));
+        piratesOfTheCaribbean.addExit("southeast", new Exit("Thunder Mesa Mercantile Building", thunderMesaMercantileBuilding));
 
         laBoutiquest.addExit("south", new Exit("Sleeping Beauty Castle", sleepingBeautyCastle));
         sleepingBeautyCastle.addExit("north", new Exit("La Boutique du Château", laBoutiquest));

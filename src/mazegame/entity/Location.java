@@ -124,6 +124,7 @@ public class Location {
             for (NonPlayableCharacter npc : npcs) {
                 npcDisplay.append(npc.toString()).append("\n");
             }
+            npcDisplay.append("You can combat with the NPC. Type 'combat [NPC name]' to engage.\n");
         }
         return "**********\n" + this.label + " - " + this.description + "\n**********\n" + exitsDisplay.toString() +
                (shopExits.length() > "Shops nearby:\n".length() ? shopExits.toString() : "No shops nearby.\n") +

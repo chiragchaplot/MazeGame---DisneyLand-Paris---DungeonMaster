@@ -1,6 +1,7 @@
 package mazegame.entity;
 
 import mazegame.entity.items.Item;
+import mazegame.entity.items.Potion;
 import mazegame.entity.items.Weapon;
 import mazegame.entity.items.Armor;
 
@@ -101,7 +102,20 @@ public class Player extends Character implements Attacker {
     }
     
     public String getInput() {
-        System.out.println("Enter your action (ATTACK, DEFEND, FLEE): ");
         return scanner.nextLine().trim().toLowerCase();
+    }
+
+    public String usePotion() {
+        Item potion = inventory.getItemByType(Potion.class);
+        
+        if (potion != null) {
+            int currentLifePoints = getLifePoints();
+            int newLifePoints = Math.min(currentLifePoints + 10, 10);
+            setLifePoints(newLifePoints);
+            removeItemFromInventory(potion);
+            return "Potion used. Health restored to " + getLifePoints() + ".";
+        } else {
+            return "No potion is available.";
+        }
     }
 }

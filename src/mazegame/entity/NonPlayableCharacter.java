@@ -1,10 +1,12 @@
 package mazegame.entity;
 
 import java.util.HashMap;
+import mazegame.entity.items.Weapon;
 
 public class NonPlayableCharacter extends Character implements Attacker {
     private boolean hostile;
     private HashMap<String, String> conversationListMap;
+    private Weapon equippedWeapon;
 
     public NonPlayableCharacter(String name) {
         super(name);
@@ -50,5 +52,13 @@ public class NonPlayableCharacter extends Character implements Attacker {
 
     public void takeDamage(int damage) {
         setLifePoints(getLifePoints() - damage);
+    }
+    
+    public void equipWeapon(Weapon weapon) {
+        this.equippedWeapon = weapon;
+    }
+
+    public Weapon getEquippedWeapon() {
+        return this.equippedWeapon;
     }
 }

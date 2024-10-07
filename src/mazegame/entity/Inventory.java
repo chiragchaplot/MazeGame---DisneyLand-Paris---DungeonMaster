@@ -31,4 +31,13 @@ public class Inventory {
         }
         return null;
     }
+    
+    public <T extends Item> T getItemByType(Class<T> itemType) {
+        for (Item item : items) {
+            if (itemType.isInstance(item)) {
+                return itemType.cast(item);
+            }
+        }
+        return null;
+    }
 }

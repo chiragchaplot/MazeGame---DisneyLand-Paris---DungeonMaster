@@ -91,7 +91,7 @@ public class HardCodedData implements IMazeData {
 
     private void createNPCs() {
         RandomNumberGenerator gen = new RandomNumberGenerator();
-        NonPlayableCharacter mickeyMouse = new NonPlayableCharacter("Mickey Mouse");
+        NonPlayableCharacter mickeyMouse = new NonPlayableCharacter("MickeyMouse");
         mickeyMouse.setLifePoints(0);
         mickeyMouse.setHostile(false);
         mickeyMouse.setConversationListMap(createNonHostileConversation1().getAllConversations());
@@ -101,6 +101,10 @@ public class HardCodedData implements IMazeData {
         maleficent.setLifePoints(10);
         maleficent.setHostile(true);
         maleficent.setConversationListMap(createHostileConversation().getAllConversations());
+        ArrayList<Weapon> weapons = Weapon.createWeaponList();
+        Random random = new Random();
+        Weapon randomWeapon = weapons.get(random.nextInt(weapons.size()));
+        maleficent.equipWeapon(randomWeapon);
         phantomManor.addNPC(maleficent);
 
         NonPlayableCharacter goofy = new NonPlayableCharacter("Goofy");

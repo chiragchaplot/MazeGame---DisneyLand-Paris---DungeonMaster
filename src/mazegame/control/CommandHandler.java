@@ -74,7 +74,7 @@ public class CommandHandler {
         availableCommands.put("getmazestatus", new GetMazeStatusCommand(mazeData));
         commandDescriptions.put("getmazestatus", "Display the current maze status (number of locations and shops).");
         
-        availableCommands.put("combat", new CombatCommand());
+        availableCommands.put("combat", new CombatCommand(party));
         commandDescriptions.put("combat", "Combat Hostile Non Playable Character");
         
         availableCommands.put("converse", new ConverseCommand());

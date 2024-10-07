@@ -91,27 +91,45 @@ public class CombatCommand implements Command {
     }
 
     private String processPlayerAction(Player player, NonPlayableCharacter npc, CombatAction action) {
+        StringBuilder attackResult = new StringBuilder();
+
         switch (action) {
             case ATTACK:
-                Weapon equippedWeapon = player.getEquippedWeapon();
-                
-                if (equippedWeapon == null) {
+                if (player.getEquippedWeapon() == null) {
                     return "You are not equipped with any weapon. It's best to flee!";
                 }
 
-                int damage = equippedWeapon.getDamage();
-                npc.takeDamage(damage);
+                int playerDamage = player.getEquippedWeapon().getDamage();
+                npc.takeDamage(playerDamage);
+                attackResult.append("You attacked ").append(npc.getName())
+                            .append(" with ").append(player.getEquippedWeapon().getLabel())
+                            .append(" for ").append(playerDamage).append(" damage.\n");
 
-                return String.format("You attacked %s with %s for %d damage.\n" +
-                                "Current Stats:\nPlayer - Life Points: %d, Equipped Weapon: %s (Damage: %d)\n" +
-                                "%s - Life Points: %d%s",
-                        npc.getName(), equippedWeapon.getLabel(), damage,
-                        player.getLifePoints(), equippedWeapon.getLabel(), equippedWeapon.getDamage(),
-                        npc.getName(), npc.getLifePoints(), npc.getLifePoints() <= 0 ? " (Defeated)" : "");
+                for (NonPlayableCharacter partyMember : party.getPartyMembers()) {
+                    if (partyMember.getEquippedWeapon() != null) {
+                        int memberDamage = partyMember.getEquippedWeapon().getDamage();
+                        npc.takeDamage(memberDamage);
+                        attackResult.append(partyMember.getName()).append(" attacked ").append(npc.getName())
+                                    .append(" with ").append(partyMember.getEquippedWeapon().getLabel())
+                                    .append(" for ").append(memberDamage).append(" damage.\n");
+                    } else {
+                        attackResult.append(partyMember.getName()).append(" has no weapon and cannot attack.\n");
+                    }
+                }
+
+                attackResult.append("Current Stats:\n");
+                attackResult.append("Player - Life Points: ").append(player.getLifePoints())
+                            .append(", Equipped Weapon: ").append(player.getEquippedWeapon().getLabel())
+                            .append(" (Damage: ").append(player.getEquippedWeapon().getDamage()).append(")\n");
+
+                attackResult.append(npc.getName()).append(" - Life Points: ").append(npc.getLifePoints())
+                            .append(npc.getLifePoints() <= 0 ? " (Defeated)" : "");
+
+                return attackResult.toString();
 
             case DEFEND:
                 return "You defended yourself.\n";
-                
+                    
             case FLEE:
                 return "You attempt to flee from combat.\n";
 
@@ -122,6 +140,7 @@ public class CombatCommand implements Command {
                 return "Unknown action.\n";
         }
     }
+
 
     private String npcTurn(Player player, NonPlayableCharacter npc) {
         int npcDamage = npc.getStrength();

@@ -91,25 +91,30 @@ public class HardCodedData implements IMazeData {
 
     private void createNPCs() {
         RandomNumberGenerator gen = new RandomNumberGenerator();
+        ArrayList<Weapon> weapons = Weapon.createWeaponList();
+        Random random = new Random();
+        
         NonPlayableCharacter mickeyMouse = new NonPlayableCharacter("MickeyMouse");
-        mickeyMouse.setLifePoints(0);
+        mickeyMouse.setLifePoints(gen.generateRandomInRange(1, 10));
+        mickeyMouse.setStrength(gen.generateRandomInRange(1, 10));
         mickeyMouse.setHostile(false);
         mickeyMouse.setConversationListMap(createNonHostileConversation1().getAllConversations());
+        mickeyMouse.equipWeapon(weapons.get(random.nextInt(weapons.size())));
         startUp.addNPC(mickeyMouse);
 
         NonPlayableCharacter maleficent = new NonPlayableCharacter("Maleficent");
         maleficent.setLifePoints(10);
-        maleficent.setStrength(5);
+        maleficent.setStrength(gen.generateRandomInRange(1, 10));
         maleficent.setHostile(true);
         maleficent.setConversationListMap(createHostileConversation().getAllConversations());
-        ArrayList<Weapon> weapons = Weapon.createWeaponList();
-        Random random = new Random();
-        Weapon randomWeapon = weapons.get(random.nextInt(weapons.size()));
-        maleficent.equipWeapon(randomWeapon);
+        maleficent.equipWeapon(weapons.get(random.nextInt(weapons.size())));
         phantomManor.addNPC(maleficent);
 
         NonPlayableCharacter goofy = new NonPlayableCharacter("Goofy");
+        goofy.setLifePoints(gen.generateRandomInRange(1, 10));
+        goofy.setStrength(gen.generateRandomInRange(1, 10));
         goofy.setHostile(false);
+        goofy.equipWeapon(weapons.get(random.nextInt(weapons.size())));
         goofy.setConversationListMap(createNonHostileConversation2().getAllConversations());
         adventureland.addNPC(goofy);
     }

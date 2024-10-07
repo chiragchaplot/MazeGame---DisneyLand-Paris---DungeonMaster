@@ -1,4 +1,4 @@
-package mazegame.control.commands;
+package mazegame.control.commands.items;
 
 import mazegame.control.Command;
 import mazegame.control.CommandResponse;

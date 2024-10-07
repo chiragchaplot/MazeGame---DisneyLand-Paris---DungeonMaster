@@ -10,18 +10,18 @@ import java.util.Set;
 public class HelpCommand implements Command {
 
     private Set<String> availableCommands;
-    private Map<String, String> commandDescriptions; // Add this to hold descriptions
+    private Map<String, String> commandDescriptions;
 
     public HelpCommand(Set<String> availableCommands, Map<String, String> commandDescriptions) {
         this.availableCommands = availableCommands;
-        this.commandDescriptions = commandDescriptions; // Initialize descriptions
+        this.commandDescriptions = commandDescriptions;
     }
 
     public CommandResponse execute(ParsedInput userInput, Player thePlayer) {
         StringBuilder helpMessage = new StringBuilder("Available commands:\n");
 
         for (String command : availableCommands) {
-            String description = commandDescriptions.get(command); // Get the description
+            String description = commandDescriptions.get(command);
             helpMessage.append("- ").append(command);
             if (description != null) {
                 helpMessage.append(": ").append(description);

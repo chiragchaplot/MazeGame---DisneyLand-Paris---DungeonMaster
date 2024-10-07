@@ -21,7 +21,6 @@ public class NonPlayableCharacter extends Character implements Attacker {
         this.hostile = hostile;
     }
 
-    // New method to get the conversation list
     public HashMap<String, String> getConversationList() {
         return conversationListMap;
     }

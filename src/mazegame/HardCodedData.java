@@ -38,7 +38,7 @@ public class HardCodedData implements IMazeData {
     }
 
     public ArrayList<Location> getLocations() {
-        return map; // Return all locations in the maze
+        return map;
     }
 
     private void createWorldMap() {

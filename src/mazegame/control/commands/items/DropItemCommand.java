@@ -37,6 +37,5 @@ public class DropItemCommand implements Command {
         currentLocation.addItem(itemToDrop);
 
         return new CommandResponse("You have dropped the item: " + itemToDrop.getLabel() + " at this location.");
-//    	return new CommandResponse("DONE");
     }
 }

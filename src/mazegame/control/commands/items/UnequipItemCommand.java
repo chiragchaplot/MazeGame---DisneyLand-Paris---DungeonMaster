@@ -16,7 +16,6 @@ public class UnequipItemCommand implements Command {
 
         int itemId;
         try {
-            // Convert Object to String and parse to integer
             itemId = Integer.parseInt(String.valueOf(userInput.getArguments().get(0)));
         } catch (NumberFormatException e) {
             return new CommandResponse("Invalid item ID. Please enter a valid number.");

@@ -12,7 +12,7 @@ import mazegame.entity.Player;
 
 public class CommandHandler {
     private HashMap<String, Command> availableCommands;
-    private HashMap<String, String> commandDescriptions; // New HashMap for command descriptions
+    private HashMap<String, String> commandDescriptions;
     private ArrayList<String> commands;
     private Parser theParser;
     private IMazeData mazeData;
@@ -22,7 +22,7 @@ public class CommandHandler {
     	this.mazeData = mazeData;
         this.party = party;
         availableCommands = new HashMap<String, Command>();
-        commandDescriptions = new HashMap<String, String>(); // Initialize descriptions
+        commandDescriptions = new HashMap<String, String>();
         commands = new ArrayList<String>();
         setupCommands();
         theParser = new Parser(popArrayList());

@@ -16,7 +16,7 @@ public class SellItemCommand implements Command {
 
         int itemId;
         try {
-            itemId = Integer.parseInt((String) userInput.getArguments().get(0)); // Cast to String
+            itemId = Integer.parseInt((String) userInput.getArguments().get(0));
         } catch (NumberFormatException e) {
             return new CommandResponse("Invalid item ID. Please enter a valid number.");
         }

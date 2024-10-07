@@ -46,7 +46,7 @@ public class Character {
 		return strength;
 	}
 
-	protected void setStrength(int strength) {
+	public void setStrength(int strength) {
 		this.strength = strength;
 	}
 	

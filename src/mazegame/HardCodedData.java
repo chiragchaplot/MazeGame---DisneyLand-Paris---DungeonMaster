@@ -99,6 +99,7 @@ public class HardCodedData implements IMazeData {
 
         NonPlayableCharacter maleficent = new NonPlayableCharacter("Maleficent");
         maleficent.setLifePoints(10);
+        maleficent.setStrength(5);
         maleficent.setHostile(true);
         maleficent.setConversationListMap(createHostileConversation().getAllConversations());
         ArrayList<Weapon> weapons = Weapon.createWeaponList();

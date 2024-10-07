@@ -72,6 +72,10 @@ public class Player extends Character implements Attacker {
     public void equipWeapon(Weapon weapon) {
         this.equippedWeapon = weapon;
     }
+    
+    public Weapon getEquippedWeapon() {
+        return this.equippedWeapon;
+    }
 
     public void equipArmor(Armor armor) {
         this.equippedArmor = armor;

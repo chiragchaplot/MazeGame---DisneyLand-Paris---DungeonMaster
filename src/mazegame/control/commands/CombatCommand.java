@@ -6,32 +6,41 @@ import mazegame.control.ParsedInput;
 import mazegame.entity.NonPlayableCharacter;
 import mazegame.entity.Player;
 import mazegame.entity.Location;
+import mazegame.entity.items.Weapon;
 import mazegame.control.state.CombatState;
 
 public class CombatCommand implements Command {
-    public CommandResponse execute(ParsedInput userInput, Player thePlayer) {
-        if (userInput.getArguments().isEmpty()) {
-            return new CommandResponse("Please specify the NPC name to combat.");
-        }
+	public CommandResponse execute(ParsedInput userInput, Player thePlayer) {
+	    if (userInput.getArguments().isEmpty()) {
+	        return new CommandResponse("Please specify the NPC name to combat.");
+	    }
 
-        String npcName = (String) userInput.getArguments().get(0);
-        NonPlayableCharacter npc = findNPCByName(thePlayer.getCurrentLocation(), npcName);
-        
-        if (npc == null) {
-            return new CommandResponse("No NPC found with the name: " + npcName);
-        }
+	    String npcName = (String) userInput.getArguments().get(0);
+	    NonPlayableCharacter npc = findNPCByName(thePlayer.getCurrentLocation(), npcName);
 
-        if (!npc.isHostile()) {
-            return new CommandResponse(npc.getName() + " is friendly. You cannot engage in combat with them.");
-        }
+	    if (npc == null) {
+	        return new CommandResponse("No NPC found with the name: " + npcName);
+	    }
 
-        if (!npc.isAlive()) {
-            return new CommandResponse(npc.getName() + " has already been defeated. You cannot combat them again.");
-        }
+	    if (!npc.isHostile()) {
+	        return new CommandResponse(npc.getName() + " is friendly. You cannot engage in combat with them.");
+	    }
 
-        CombatState combatState = new CombatState(thePlayer, npc);
-        return startCombat(combatState);
-    }
+	    if (!npc.isAlive()) {
+	        return new CommandResponse(npc.getName() + " has already been defeated. You cannot combat them again.");
+	    }
+
+	    CombatState combatState = new CombatState(thePlayer, npc);
+	    CommandResponse combatResponse = startCombat(combatState);
+
+	    // Check if the player fled
+	    if (combatResponse.getMessage().contains("flee")) {
+	        return new CommandResponse("Combat has ended as you chose to flee.");
+	    }
+
+	    return combatResponse;
+	}
+
 
     private NonPlayableCharacter findNPCByName(Location location, String name) {
         for (NonPlayableCharacter npc : location.getNPCs()) {
@@ -44,15 +53,12 @@ public class CombatCommand implements Command {
 
     private CommandResponse startCombat(CombatState combatState) {
         StringBuilder combatResult = new StringBuilder("Combat started with " + combatState.getNpc().getName() + "!\n");
-        System.out.println(combatResult.toString());  // Display once when combat starts
+        System.out.println(combatResult.toString());
 
         while (combatState.isCombatActive() && combatState.getPlayer().isAlive() && combatState.getNpc().isAlive()) {
             CombatAction playerAction = null;
-
-            // Prompt user for action
             System.out.println("Choose an action: ATTACK, DEFEND, FLEE, USEPOTION");
 
-            // Validate the input for a valid action
             while (playerAction == null) {
                 String playerActionInput = combatState.getPlayer().getInput();
 
@@ -64,17 +70,14 @@ public class CombatCommand implements Command {
                 }
             }
 
-            // Process valid action
             String actionResult = processPlayerAction(combatState.getPlayer(), combatState.getNpc(), playerAction);
             System.out.println(actionResult);
 
-            // Handle the flee action by breaking out of the loop and awaiting the next command
             if (playerAction == CombatAction.FLEE) {
-                System.out.println("You have chosen to flee. Awaiting your next command...");
-                break;
+                System.out.println("You have chosen to flee. Combat has ended.");
+                break;  // Break out of combat loop
             }
 
-            // Check if NPC is defeated after the player’s action
             if (!combatState.getNpc().isAlive()) {
                 System.out.println(combatState.getNpc().getName() + " has been defeated!");
                 System.out.println("Game Over. You have won!");
@@ -85,10 +88,10 @@ public class CombatCommand implements Command {
             String npcActionResult = npcTurn(combatState.getPlayer(), combatState.getNpc());
             System.out.println(npcActionResult);
 
-            // Check if player is defeated
             if (!combatState.getPlayer().isAlive()) {
                 System.out.println("You have been defeated by " + combatState.getNpc().getName() + ".");
-                break;
+                System.out.println("Game Over. You have lost!");
+                System.exit(0);  // Exit the game after player is defeated
             }
         }
 
@@ -100,15 +103,40 @@ public class CombatCommand implements Command {
     private String processPlayerAction(Player player, NonPlayableCharacter npc, CombatAction action) {
         switch (action) {
             case ATTACK:
-                player.attack(npc);
-                return "You attacked " + npc.getName() + " for " + player.getStrength() + " damage.\n";
+                Weapon equippedWeapon = player.getEquippedWeapon();
+                
+                if (equippedWeapon == null) {
+                    return "You are not equipped with any weapon. It's best to flee!";
+                }
+
+                int damage = equippedWeapon.getDamage();
+                npc.takeDamage(damage);
+
+                StringBuilder attackResult = new StringBuilder();
+                attackResult.append("You attacked ").append(npc.getName())
+                            .append(" with ").append(equippedWeapon.getLabel())
+                            .append(" for ").append(damage).append(" damage.\n");
+
+                attackResult.append("Current Stats:\n");
+                attackResult.append("Player - Life Points: ").append(player.getLifePoints())
+                            .append(", Equipped Weapon: ").append(equippedWeapon.getLabel())
+                            .append(" (Damage: ").append(equippedWeapon.getDamage()).append(")\n");
+
+                attackResult.append(npc.getName()).append(" - Life Points: ").append(npc.getLifePoints())
+                            .append(npc.getLifePoints() <= 0 ? " (Defeated)" : "");
+
+                return attackResult.toString();
+
             case DEFEND:
                 return "You defended yourself.\n";
+                
             case FLEE:
                 return "You attempt to flee from combat.\n";
+
             case USEPOTION:
                 player.usePotion();
                 return "You used a potion to restore health.\n";
+
             default:
                 return "Unknown action.\n";
         }
@@ -116,16 +144,11 @@ public class CombatCommand implements Command {
 
     private String npcTurn(Player player, NonPlayableCharacter npc) {
         if (npc.isHostile()) {
-            npc.attack(player);
-            return npc.getName() + " attacks you for " + npc.getStrength() + " damage.\n";
+            int npcDamage = npc.getStrength();
+            player.takeDamage(npcDamage);
+            return npc.getName() + " attacks you for " + npcDamage + " damage.\n";
         } else {
             return npc.getName() + " does not attack.\n";
         }
-    }
-
-    private boolean attemptToFlee(Player player, NonPlayableCharacter npc) {
-        int playerAgility = player.getAgility();
-        int npcAgility = npc.getAgility();
-        return playerAgility >= npcAgility;
     }
 }

@@ -85,6 +85,12 @@ public class CommandHandler {
 
         availableCommands.put("leaveparty", new LeavePartyCommand(party));
         commandDescriptions.put("leaveparty", "Ask NPC to Leave your Quest");
+        
+        availableCommands.put("listitemsfromnpc", new ListItemsFromNPCCommand());
+        commandDescriptions.put("listitemsfromnpc", "List all items held by a specified NPC");
+        
+        availableCommands.put("getitemfromnpc", new GetItemFromNPCCommand(party));
+        commandDescriptions.put("getitemfromnpc", "Get an item from an NPC in your party by specifying NPC name and item ID.");
 
         availableCommands.put("help", new HelpCommand(availableCommands.keySet(), commandDescriptions));
         commandDescriptions.put("help", "Show the list of available commands and their descriptions.");

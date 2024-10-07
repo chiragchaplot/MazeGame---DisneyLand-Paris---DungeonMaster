@@ -1,16 +1,20 @@
 package mazegame.entity;
 
 import java.util.HashMap;
-import mazegame.entity.items.Weapon;
+import java.util.ArrayList;
+import java.util.List;
+import mazegame.entity.items.*;
 
 public class NonPlayableCharacter extends Character implements Attacker {
     private boolean hostile;
     private HashMap<String, String> conversationListMap;
     private Weapon equippedWeapon;
+    private List<Item> items;
 
     public NonPlayableCharacter(String name) {
         super(name);
         this.conversationListMap = new HashMap<>();
+        this.items = new ArrayList<>();
     }
 
     public boolean isHostile() {
@@ -60,5 +64,24 @@ public class NonPlayableCharacter extends Character implements Attacker {
 
     public Weapon getEquippedWeapon() {
         return this.equippedWeapon;
+    }
+    
+    public Item getItemById(int id) {
+        return items.stream()
+                .filter(item -> item.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
+    
+    public void removeItem(Item item) {
+        items.remove(item);
+    }
+    
+    public List<Item> getItems() {
+        return items;
+    }
+    
+    public void addItem(Item item) {
+        items.add(item);
     }
 }

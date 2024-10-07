@@ -7,7 +7,6 @@ public class Character {
     private int strength;
     
 //    public Mazegame.Entity.Dice m_Dice;
-//    public Mazegame.Entity.Party m_Party;
     
     public Character()
     {

@@ -6,6 +6,13 @@ import java.util.Set;
 
 import mazegame.boundary.IMazeData;
 import mazegame.control.commands.*;
+import mazegame.control.commands.items.DropItemCommand;
+import mazegame.control.commands.items.EquipItemCommand;
+import mazegame.control.commands.items.GetItemCommand;
+import mazegame.control.commands.items.ListItemsCommand;
+import mazegame.control.commands.items.PurchaseItemCommand;
+import mazegame.control.commands.items.SellItemCommand;
+import mazegame.control.commands.items.UnequipItemCommand;
 import mazegame.entity.Player;
 
 public class CommandHandler {
@@ -72,6 +79,9 @@ public class CommandHandler {
         
         availableCommands.put("combat", new CombatCommand());
         commandDescriptions.put("combat", "Combat Hostile Non Playable Character");
+        
+        availableCommands.put("converse", new ConverseCommand());
+        commandDescriptions.put("converse", "Talk to the NPC");
 
         availableCommands.put("help", new HelpCommand(availableCommands.keySet(), commandDescriptions));
         commandDescriptions.put("help", "Show the list of available commands and their descriptions.");

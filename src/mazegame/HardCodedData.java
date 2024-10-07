@@ -200,20 +200,24 @@ public class HardCodedData implements IMazeData {
     private ConversationList createNonHostileConversation1() {
         ConversationList conversationList = new ConversationList();
         conversationList.addConversation("hello", "Hi there! Welcome to Disneyland Paris. How can I help you today?");
-        conversationList.addConversation("good", "Glad to hear you're enjoying your time at Disneyland! Did you see Sleeping Beauty Castle yet?");
+        conversationList.addConversation("suggestion", "I suggest starting with Sleeping Beauty Castle, it's a sight you won't forget!");
+        conversationList.addConversation("hint", "Looking for an adventure? Head to Adventureland to the west!");
         conversationList.addConversation("castle", "The Sleeping Beauty Castle is just to the north. It's magical!");
         conversationList.addConversation("adventureland", "Head west to Adventureland for some thrilling rides! Watch out for the pirates!");
         conversationList.addConversation("bye", "See you around, pal! Have a magical day!");
+        conversationList.addConversation("join", "If you’re looking for more fun, let’s head to Fantasyland together!");
         return conversationList;
     }
 
     private ConversationList createNonHostileConversation2() {
         ConversationList conversationList = new ConversationList();
         conversationList.addConversation("hello", "Gawrsh! Howdy, pal! What brings you to Disneyland?");
-        conversationList.addConversation("adventureland", "Oh boy! Adventureland is my favorite! Just head west from here.");
+        conversationList.addConversation("suggestion", "Adventureland is one of my favorite spots! Head west for some real thrills.");
+        conversationList.addConversation("hint", "If you're up for a spooky experience, check out the Phantom Manor northeast of Sleeping Beauty Castle.");
         conversationList.addConversation("phantom", "Phantom Manor? That's one spooky place! It's northeast from Sleeping Beauty Castle.");
         conversationList.addConversation("bigthunder", "Big Thunder Mountain? Yeehaw! You’ll find it north of Adventureland.");
         conversationList.addConversation("bye", "Take care, and have a great time at Disneyland!");
+        conversationList.addConversation("join", "How about joining me on a tour of Frontierland? We can explore together!");
         return conversationList;
     }
 

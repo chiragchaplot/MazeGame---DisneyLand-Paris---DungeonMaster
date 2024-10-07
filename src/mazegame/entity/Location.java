@@ -122,9 +122,13 @@ public class Location {
         if (!npcs.isEmpty()) {
             npcDisplay.append("NPCs at this location:\n");
             for (NonPlayableCharacter npc : npcs) {
-                npcDisplay.append(npc.toString()).append("\n");
+                npcDisplay.append(npc.toString()).append(" - ");
+                if (npc.isHostile()) {
+                    npcDisplay.append("Hostile. You can combat with this NPC. Type 'combat [NPC name]' to engage.\n");
+                } else {
+                    npcDisplay.append("Friendly. You can converse with this NPC. Type 'converse [NPC name]' to interact.\n");
+                }
             }
-            npcDisplay.append("You can combat with the NPC. Type 'combat [NPC name]' to engage.\n");
         }
         return "**********\n" + this.label + " - " + this.description + "\n**********\n" + exitsDisplay.toString() +
                (shopExits.length() > "Shops nearby:\n".length() ? shopExits.toString() : "No shops nearby.\n") +

@@ -6,11 +6,13 @@ import mazegame.control.ParsedInput;
 import mazegame.entity.NonPlayableCharacter;
 import mazegame.entity.Player;
 import mazegame.entity.Location;
+import mazegame.entity.Party;
 
 import java.util.Scanner;
 
 public class ConverseCommand implements Command {
     private Scanner scanner = new Scanner(System.in);
+    private Party party = new Party();
 
     public CommandResponse execute(ParsedInput userInput, Player player) {
         if (userInput.getArguments().isEmpty()) {
@@ -28,25 +30,38 @@ public class ConverseCommand implements Command {
             return new CommandResponse(npc.getName() + " is hostile. You cannot converse with them.");
         }
 
-        // Start conversation with a greeting
         StringBuilder conversation = new StringBuilder();
         conversation.append("You are now conversing with ").append(npc.getName()).append(".\n");
-        conversation.append(npc.talk("hello")).append("\n");  // Default greeting from NPC
+        conversation.append(npc.talk("hello")).append("\n");
 
         System.out.println(conversation.toString());
 
-        // Enter interactive conversation loop
         while (true) {
-            System.out.print("Your response (type 'bye' to end conversation): ");
+            System.out.print("Your response (type 'help' for conversation options, 'bye' or 'leave' to end): ");
             String playerResponse = scanner.nextLine().trim().toLowerCase();
 
-            // Exit conversation on "bye"
-            if (playerResponse.equals("bye")) {
-                System.out.println("You ended the conversation with " + npc.getName() + ".");
+            if (playerResponse.equals("bye") || playerResponse.equals("leave")) {
+                String exitMessage = playerResponse.equals("bye") ? 
+                    "You ended the conversation with " + npc.getName() + "." : 
+                    "You decided to leave the conversation with " + npc.getName() + ".";
+                System.out.println(exitMessage);
                 break;
             }
 
-            // Get NPC response based on player input
+            if (playerResponse.equals("help")) {
+                System.out.println("Available conversation topics:");
+                for (String topic : npc.getConversationList().keySet()) {
+                    System.out.println("- " + topic);
+                }
+                continue;
+            }
+
+            if (playerResponse.equals("join") && !npc.isHostile()) {
+                party.addMember(npc);
+                System.out.println(npc.getName() + " has joined your party!");
+                break;
+            }
+
             String npcResponse = npc.talk(playerResponse);
             System.out.println(npc.getName() + ": " + npcResponse);
         }
@@ -61,5 +76,9 @@ public class ConverseCommand implements Command {
             }
         }
         return null;
+    }
+
+    public Party getParty() {
+        return party;
     }
 }

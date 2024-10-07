@@ -21,8 +21,12 @@ public class CombatCommand implements Command {
             return new CommandResponse("No NPC found with the name: " + npcName);
         }
 
+        if (!npc.isHostile()) {
+            return new CommandResponse(npc.getName() + " is friendly. You cannot engage in combat with them.");
+        }
+
         CombatState combatState = new CombatState(thePlayer, npc);
-        return startCombat(combatState); // Start combat with the found NPC
+        return startCombat(combatState);
     }
 
     private NonPlayableCharacter findNPCByName(Location location, String name) {
@@ -31,7 +35,7 @@ public class CombatCommand implements Command {
                 return npc;
             }
         }
-        return null; // Return null if no NPC with the given name is found
+        return null;
     }
 
     private CommandResponse startCombat(CombatState combatState) {
@@ -39,7 +43,7 @@ public class CombatCommand implements Command {
 
         while (combatState.isCombatActive() && combatState.getPlayer().isAlive() && combatState.getNpc().isAlive()) {
             combatResult.append("\nChoose an action: ATTACK, DEFEND, FLEE\n");
-			String playerActionInput = combatState.getPlayer().getInput();
+            String playerActionInput = combatState.getPlayer().getInput();
             CombatAction playerAction;
 
             try {

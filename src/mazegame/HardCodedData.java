@@ -34,7 +34,7 @@ public class HardCodedData implements IMazeData {
     }
 
     public String getWelcomeMessage() {
-        return "Welcome to the Mount Helanous";
+        return "Welcome to the DisneyLand - Paris";
     }
 
     public ArrayList<Location> getLocations() {

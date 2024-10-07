@@ -6,13 +6,8 @@ import java.util.Set;
 
 import mazegame.boundary.IMazeData;
 import mazegame.control.commands.*;
-import mazegame.control.commands.items.DropItemCommand;
-import mazegame.control.commands.items.EquipItemCommand;
-import mazegame.control.commands.items.GetItemCommand;
-import mazegame.control.commands.items.ListItemsCommand;
-import mazegame.control.commands.items.PurchaseItemCommand;
-import mazegame.control.commands.items.SellItemCommand;
-import mazegame.control.commands.items.UnequipItemCommand;
+import mazegame.control.commands.items.*;
+import mazegame.entity.Party;
 import mazegame.entity.Player;
 
 public class CommandHandler {
@@ -21,9 +16,11 @@ public class CommandHandler {
     private ArrayList<String> commands;
     private Parser theParser;
     private IMazeData mazeData;
+    private Party party;
     
-    public CommandHandler(IMazeData mazeData) {
+    public CommandHandler(IMazeData mazeData, Party party) {
     	this.mazeData = mazeData;
+        this.party = party;
         availableCommands = new HashMap<String, Command>();
         commandDescriptions = new HashMap<String, String>(); // Initialize descriptions
         commands = new ArrayList<String>();
@@ -82,6 +79,12 @@ public class CommandHandler {
         
         availableCommands.put("converse", new ConverseCommand());
         commandDescriptions.put("converse", "Talk to the NPC");
+        
+        availableCommands.put("joinparty", new JoinPartyCommand(party));
+        commandDescriptions.put("joinparty", "Ask NPC to Join your Quest");
+
+        availableCommands.put("leaveparty", new LeavePartyCommand(party));
+        commandDescriptions.put("leaveparty", "Ask NPC to Leave your Quest");
 
         availableCommands.put("help", new HelpCommand(availableCommands.keySet(), commandDescriptions));
         commandDescriptions.put("help", "Show the list of available commands and their descriptions.");

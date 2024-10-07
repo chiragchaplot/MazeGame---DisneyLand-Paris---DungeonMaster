@@ -19,4 +19,11 @@ public class Party {
     public List<NonPlayableCharacter> getPartyMembers() {
         return partyMembers;
     }
+    
+    public void moveParty(Location oldLocation, Location newLocation) {
+        for (NonPlayableCharacter npc : partyMembers) {
+            oldLocation.getNPCs().remove(npc);
+            newLocation.addNPC(npc);
+        }
+    }
 }

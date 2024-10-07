@@ -29,13 +29,13 @@ public class CommandHandler {
     }
     
     private void setupCommands() {
-        availableCommands.put("go", new MoveCommand());
+        availableCommands.put("go", new MoveCommand(party));
         commandDescriptions.put("go", "Move in a specified direction.");
         
         availableCommands.put("quit", new QuitCommand());
         commandDescriptions.put("quit", "Exit the game.");
         
-        availableCommands.put("move", new MoveCommand());
+        availableCommands.put("move", new MoveCommand(party));
         commandDescriptions.put("move", "Move in a specified direction.");
 
         availableCommands.put("look", new LookCommand());

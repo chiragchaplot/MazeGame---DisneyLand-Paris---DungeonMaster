@@ -134,8 +134,8 @@ public class CombatCommand implements Command {
                 return "You attempt to flee from combat.\n";
 
             case USEPOTION:
-                player.usePotion();
-                return "You used a potion to restore health.\n";
+            	String potionResult = player.usePotion();
+                return potionResult + " New Health: " + player.getLifePoints() + ".\n";
 
             default:
                 return "Unknown action.\n";

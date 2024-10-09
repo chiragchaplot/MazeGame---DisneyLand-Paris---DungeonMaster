@@ -1,4 +1,4 @@
-package mazegame.entity.tests;
+package mazegame.tests;
 
 import mazegame.control.CommandResponse;
 import mazegame.control.ParsedInput;
@@ -50,7 +50,6 @@ public class DropItemCommandTest {
     public void testDropItemNotInInventory() {
         ParsedInput parsedInput = new ParsedInput("dropitem", new ArrayList<>(List.of("99")));
         CommandResponse response = dropItemCommand.execute(parsedInput, player);
-        System.out.println(response.getMessage());
         assertEquals("You do not have an item with that ID.", response.getMessage());
     }
 }

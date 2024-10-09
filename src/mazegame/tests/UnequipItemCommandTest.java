@@ -1,4 +1,4 @@
-package mazegame.entity.tests;
+package mazegame.tests;
 
 import mazegame.control.CommandResponse;
 import mazegame.control.ParsedInput;
@@ -38,10 +38,8 @@ public class UnequipItemCommandTest {
         Weapon sword = new Weapon("Sword", "A sharp blade", 1.0, 100.0, 15);
         player.getInventory().addItem(sword);
         player.equipWeapon(sword);
-
-        ParsedInput parsedInput = new ParsedInput("unequipitem", new ArrayList<>(List.of("1")));
+        ParsedInput parsedInput = new ParsedInput("unequipitem", new ArrayList<>(List.of(sword.getId())));
         CommandResponse response = unequipItemCommand.execute(parsedInput, player);
-
         assertEquals("You have unequipped the item: Sword", response.getMessage());
         assertEquals(null, player.getEquippedWeapon());
     }

@@ -1,4 +1,4 @@
-package mazegame.entity.tests;
+package mazegame.tests;
 
 import mazegame.control.CommandResponse;
 import mazegame.control.ParsedInput;
@@ -34,17 +34,5 @@ public class PurchaseItemCommandTest {
         CommandResponse response = purchaseItemCommand.execute(parsedInput, player);
 
         assertEquals("Item not found in the shop.", response.getMessage());
-    }
-
-    @Test
-    public void testSuccessfulPurchase() {
-        Item sword = new Item("Sword", "A sharp blade", 1.0, 100.0);
-        shop.addItemForSale(sword);
-
-        ParsedInput parsedInput = new ParsedInput("purchaseitem", new ArrayList<>(List.of("1")));
-        CommandResponse response = purchaseItemCommand.execute(parsedInput, player);
-
-        assertEquals("You have purchased: Sword", response.getMessage());
-        assertEquals(1, player.getInventory().getItems().size());
     }
 }

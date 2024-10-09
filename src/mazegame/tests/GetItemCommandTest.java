@@ -1,4 +1,4 @@
-package mazegame.entity.tests;
+package mazegame.tests;
 
 import mazegame.control.CommandResponse;
 import mazegame.control.ParsedInput;

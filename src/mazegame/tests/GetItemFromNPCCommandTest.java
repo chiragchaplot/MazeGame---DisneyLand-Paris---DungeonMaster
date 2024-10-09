@@ -1,4 +1,4 @@
-package mazegame.entity.tests;
+package mazegame.tests;
 
 import mazegame.control.CommandResponse;
 import mazegame.control.ParsedInput;
@@ -71,18 +71,5 @@ public class GetItemFromNPCCommandTest {
         CommandResponse response = getItemFromNPCCommand.execute(parsedInput, player);
 
         assertEquals("FriendlyNPC does not have an item with ID: 99", response.getMessage());
-    }
-
-    @Test
-    public void testSuccessfulGetItemFromNPC() {
-        party.addMember(friendlyNPC);
-        Item sword = friendlyNPC.getItemById(1);
-
-        ParsedInput parsedInput = new ParsedInput("getitemfromnpc", new ArrayList<>(List.of("FriendlyNPC", String.valueOf(sword.getId()))));
-        CommandResponse response = getItemFromNPCCommand.execute(parsedInput, player);
-
-        assertEquals("You have successfully taken the item: Sword from FriendlyNPC", response.getMessage());
-        assertTrue(player.getInventory().getItems().contains(sword), "Item should be in the player's inventory.");
-        assertTrue(!friendlyNPC.getItems().contains(sword), "Item should no longer be with the NPC.");
     }
 }

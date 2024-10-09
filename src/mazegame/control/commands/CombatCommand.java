@@ -90,7 +90,7 @@ public class CombatCommand implements Command {
         return new CommandResponse(combatResult.toString());
     }
 
-    private String processPlayerAction(Player player, NonPlayableCharacter npc, CombatAction action) {
+    public String processPlayerAction(Player player, NonPlayableCharacter npc, CombatAction action) {
         StringBuilder attackResult = new StringBuilder();
 
         switch (action) {

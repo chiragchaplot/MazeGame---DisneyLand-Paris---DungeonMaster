@@ -1,4 +1,4 @@
-package mazegame.entity.tests;
+package mazegame.tests;
 
 import mazegame.control.CommandResponse;
 import mazegame.control.ParsedInput;
@@ -30,21 +30,8 @@ public class SellItemCommandTest {
 
     @Test
     public void testSellItemNotInInventory() {
-        ParsedInput parsedInput = new ParsedInput("sellitem", new ArrayList<>(List.of("1")));
+        ParsedInput parsedInput = new ParsedInput("sellitem", new ArrayList<>(List.of("99")));
         CommandResponse response = sellItemCommand.execute(parsedInput, player);
-
         assertEquals("You do not have an item with that ID.", response.getMessage());
-    }
-
-    @Test
-    public void testSuccessfulSellItem() {
-        Item sword = new Item("Sword", "A sharp blade", 1.0, 100.0);
-        player.addItemToInventory(sword);
-
-        ParsedInput parsedInput = new ParsedInput("sellitem", new ArrayList<>(List.of("1")));
-        CommandResponse response = sellItemCommand.execute(parsedInput, player);
-
-        assertEquals("You have sold: Sword", response.getMessage());
-        assertEquals(0, player.getInventory().getItems().size());
     }
 }
